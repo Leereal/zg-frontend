@@ -1,0 +1,20 @@
+let email = "leereal08@gmail.com"
+
+//I want to take only 3 letter of the email from the beginning to create a small 3 letter string 
+
+let smallemail = email.slice(0,3) //Output:lee //take note that 0 is the starting point since we begin to count from zero 3 is the end point which is not included
+
+let anothersmallemail = email.substring(0,3) //Output:lee // 0 is the starting point and 3 is number of characters 
+
+let result = email.includes('@') //result: true //It checks if @ is included. Can be used to check vulgar /links from chat rooms //Can also be used on array to check if values are available
+
+//Make amount Number()
+
+
+
+
+Increase computer speed twerks
+==============================
+1. In Admin mode CMD try: net.exe stop superfetch  or   net.exe stop sysmain
+2. In Admin mode CMD perform disk check and reschedule it to next restart by using this: command chkdsk.exe /f /r
+3. Update drivers

@@ -6,6 +6,7 @@ import store from "./store";
 import "./global-components";
 import "./utils";
 import "./libs";
+import 'vue-search-select/dist/VueSearchSelect.css'//CSS for search dropdown
 
 import Swal from 'sweetalert2'
 import { Form, HasError, AlertError } from 'vform'

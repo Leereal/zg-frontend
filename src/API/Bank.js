@@ -7,8 +7,8 @@ export default {
     store(data){
         return Api.post(END_POINT,data);
     },
-    update(payload,id){
-        return Api.put(`${END_POINT}/${id}`,payload);
+    update(payload){
+        return Api.put(`${END_POINT}/${payload.id}`,payload);
     },
     delete(id){
         return Api.delete(`${END_POINT}/${id}`)

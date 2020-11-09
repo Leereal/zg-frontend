@@ -210,7 +210,7 @@ export default {
         headerSort: true,
         columnHeaderSortMulti: true,
         placeholder: "No matching records found",
-        columns: [        
+        columns: [
           // For HTML table
           {
             title: "DATE PAID",
@@ -284,22 +284,36 @@ export default {
             download: false,
           },
           {
-            title: "ACTIONS",
-            field: "actions",
+            title: "EDIT",
+            field: "edit",
             hozAlign: "center",
             vertAlign: "middle",
             print: false,
             download: false,
             formatter() {
-              return `<div class="flex lg:justify-center items-center">
+              return `<div class="flex lg:justify-center items-center">              
               <a class="flex items-center mr-3" href="">
                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
               </a>
-              <a class="flex items-center text-theme-6" href="">
+            </div>`;
+            },
+            cellClick: this.editValue,
+          },
+          {
+            title: "DELETE",
+            field: "delete",
+            hozAlign: "center",
+            vertAlign: "middle",
+            print: false,
+            download: false,
+            formatter() {
+              return `<div class="flex lg:justify-center items-center">              
+              <a class="flex items-center text-theme-6" href="javascript:;">
                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
               </a>
             </div>`;
             },
+            cellClick: this.deleteValue,
           },
 
           // For print format
@@ -359,16 +373,6 @@ export default {
             print: true,
             download: true,
           },
-          // {
-          //   title: "STATUS",
-          //   field: "status",
-          //   visible: false,
-          //   print: true,
-          //   download: true,
-          //   formatterPrint(cell) {
-          //     return cell.getValue() ? "Active" : "Inactive";
-          //   },
-          // },   
         ],
         renderComplete() {
           feather.replace({
@@ -387,7 +391,46 @@ export default {
     });
   },
   methods: {
-    ...mapActions(["fetchAllPayments", "getPay"]),
+    ...mapActions(["fetchAllPayments", "deletePayment"]),
+
+    //Start: Delete function
+    deleteValue(e, cell) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deletePayment(cell.getData().id)
+            .then(() => {
+              console.log(cell.getRow());
+              Swal.fire("Deleted!", "Payment has been deleted.", "success");
+            })
+            .catch((err) => { console.log(err)});
+        }
+      });
+    },
+    //End: Delete function
+
+    //Start: Edit function
+    editValue(e, cell) {
+      let form = cell.getData();
+      this.form.reset();
+      this.edit = true;
+      this.form.id = form.id;
+      this.form.name = form.name;
+      this.form.phone = form.phone;
+      this.form.email = form.email;
+      this.form.address = form.address;
+      this.modalTitle = "Edit Branch";
+      this.showModal = true;
+    },
+    //End: Edit function
+
     // Filter function
     onFilter() {
       this.table.setFilter(

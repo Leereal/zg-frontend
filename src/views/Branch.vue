@@ -12,10 +12,9 @@
             href="javascript:;"
             data-toggle="modal"
             data-target="#add-modal-preview"
-            @click="showModal = true"
             class="button inline-block bg-theme-1 text-white"
-            >Add New Branch</a
-          >
+            @click="showModal = true"
+          >Add New Branch</a>
         </div>
         <div class="dropdown">
           <button
@@ -57,7 +56,7 @@
               type="text"
               class="input w-56 box pr-10 placeholder-theme-13"
               placeholder="Search..."
-            />
+            >
             <SearchIcon
               class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"
             />
@@ -89,7 +88,7 @@
           <tbody>
             <tr
               v-for="branch in branches"
-              v-bind:key="branch.id"
+              :key="branch.id"
               class="intro-x"
             >
               <td>{{ branch.name }}</td>
@@ -128,37 +127,64 @@
       >
         <ul class="pagination">
           <li>
-            <a class="pagination__link" href="">
+            <a
+              class="pagination__link"
+              href=""
+            >
               <ChevronsLeftIcon class="w-4 h-4" />
             </a>
           </li>
           <li>
-            <a class="pagination__link" href="">
+            <a
+              class="pagination__link"
+              href=""
+            >
               <ChevronLeftIcon class="w-4 h-4" />
             </a>
           </li>
           <li>
-            <a class="pagination__link" href="">...</a>
+            <a
+              class="pagination__link"
+              href=""
+            >...</a>
           </li>
           <li>
-            <a class="pagination__link" href="">1</a>
+            <a
+              class="pagination__link"
+              href=""
+            >1</a>
           </li>
           <li>
-            <a class="pagination__link pagination__link--active" href="">2</a>
+            <a
+              class="pagination__link pagination__link--active"
+              href=""
+            >2</a>
           </li>
           <li>
-            <a class="pagination__link" href="">3</a>
+            <a
+              class="pagination__link"
+              href=""
+            >3</a>
           </li>
           <li>
-            <a class="pagination__link" href="">...</a>
+            <a
+              class="pagination__link"
+              href=""
+            >...</a>
           </li>
           <li>
-            <a class="pagination__link" href="">
+            <a
+              class="pagination__link"
+              href=""
+            >
               <ChevronRightIcon class="w-4 h-4" />
             </a>
           </li>
           <li>
-            <a class="pagination__link" href="">
+            <a
+              class="pagination__link"
+              href=""
+            >
               <ChevronsRightIcon class="w-4 h-4" />
             </a>
           </li>
@@ -174,9 +200,15 @@
     </div>
     <!-- BEGIN: Add and Edit Modal -->
     <form id="addForm">
-      <div id="add-modal" class="p-5">
+      <div
+        id="add-modal"
+        class="p-5"
+      >
         <div class="preview">
-          <div id="add-modal-preview" class="modal">
+          <div
+            id="add-modal-preview"
+            class="modal"
+          >
             <div class="modal__content">
               <div
                 class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5"
@@ -189,38 +221,38 @@
                 <div class="col-span-12 sm:col-span-6">
                   <label>Name</label>
                   <input
+                    v-model="form.name"
                     type="text"
                     class="input w-full border mt-2 flex-1"
                     placeholder="Name of the Branch"
-                    v-model="form.name"
-                  />
+                  >
                 </div>
                 <div class="col-span-12 sm:col-span-6">
                   <label>Email</label>
                   <input
+                    v-model="form.email"
                     type="text"
                     class="input w-full border mt-2 flex-1"
                     placeholder="example@gmail.com"
-                    v-model="form.email"
-                  />
+                  >
                 </div>
                 <div class="col-span-12 sm:col-span-6">
                   <label>Phone</label>
                   <input
+                    v-model="form.phone"
                     type="text"
                     class="input w-full border mt-2 flex-1"
                     placeholder="Landline or Cellphone"
-                    v-model="form.phone"
-                  />
+                  >
                 </div>
                 <div class="col-span-12 sm:col-span-6">
                   <label>Address</label>
                   <input
+                    v-model="form.address"
                     type="text"
                     class="input w-full border mt-2 flex-1"
                     placeholder="Location of Branch"
-                    v-model="form.address"
-                  />
+                  >
                 </div>
               </div>
               <div
@@ -229,16 +261,16 @@
                 <button
                   type="button"
                   data-dismiss="modal"
-                  @click="form.reset()"
                   class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1"
+                  @click="form.reset()"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
-                  @click.prevent="addValue"
                   :data-dismiss="showModal"
                   class="button w-20 bg-theme-1 text-white"
+                  @click.prevent="addValue"
                 >
                   Save
                 </button>
@@ -283,7 +315,7 @@ export default {
             this.form.reset(); //Clear form fields
             this.showModal = "modal"; //Close Modal
           } else {
-            console.log('There was an error')
+           
           }
         }); //Submit to Store Actions
       } else {

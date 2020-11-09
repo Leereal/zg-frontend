@@ -175,9 +175,7 @@
       @close="close"
       @submit-form="addValue"
     >
-      <div
-        class="p-5 grid grid-cols-12 gap-4 row-gap-3  border-b border-blue-300 "
-      >
+      <div>
         <!-- Start: Type Field -->
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
@@ -206,26 +204,18 @@
         <!-- Start: Principal Member Field -->
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
-            Principal
+            Principal Member
             <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
               >(Required if Type is Dependent)</span
             >
           </label>
-          <model-list-select
-            :list="principals"
-            v-model="form.principal"
-            option-value="id"
-            :custom-text="principalDetails"
-            placeholder="Select Principal"
+          <input
+            v-model="$v.form.principal.$model"
+            type="text"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.principal.$error }"
-          >
-          </model-list-select>
-          <template v-if="$v.form.principal.$error">
-            <div v-if="!$v.form.principal.required" class="text-theme-6 mt-2">
-              Principal is requred if client is dependent
-            </div>
-          </template>
+            placeholder="First Name"
+          />
         </div>
         <!-- End: Principal Member Field -->
 
@@ -237,16 +227,15 @@
               >(Required)</span
             >
           </label>
-          <model-list-select
-            :list="plans"
+          <select
             v-model="$v.form.plan.$model"
-            option-value="id"
-            :option-text="'name'"
-            placeholder="Select Plan"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.plan.$error }"
           >
-          </model-list-select>
+            <option disabled value="">Select Plan</option>
+            <option>Gold</option>
+            <option>Diamond</option>
+          </select>
           <template v-if="$v.form.surname.$error">
             <div v-if="!$v.form.plan.required" class="text-theme-6 mt-2">
               Plan is required
@@ -263,22 +252,21 @@
               >(Optional)</span
             >
           </label>
-          <model-list-select
-            :list="groups"
+          <select
             v-model="$v.form.corporate.$model"
-            option-value="id"
-            :option-text="'name'"
-            placeholder="Select Corporate"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.corporate.$error }"
           >
-          </model-list-select>
+            <option disabled value="">Select Plan</option>
+            <option>Bata</option>
+            <option>CABS</option>
+          </select>
         </div>
         <!-- End: Corporate Field -->
       </div>
 
       <div
-        class="p-5 grid grid-cols-12 gap-4 row-gap-3 border-b border-blue-300 "
+        class="flex items-center px-10 py-10 sm:py-3 border-b-2 border-gray-200 dark:border-dark-5"
       >
         <!-- Start: Title Field -->
         <div class="col-span-12 sm:col-span-3">
@@ -401,7 +389,7 @@
       </div>
 
       <div
-        class="p-5 grid grid-cols-12 gap-4 row-gap-3 border-b border-blue-300 "
+        class="flex items-center px-10 py-10 sm:py-3 border-b-2 border-gray-200 dark:border-dark-5"
       >
         <!-- Start: Cellphone Field -->
         <div class="col-span-12 sm:col-span-3">
@@ -418,7 +406,10 @@
             :class="{ 'border-theme-6': $v.form.cellphone.$error }"
             placeholder="0771234567"
           />
-          <template v-if="$v.form.cellphone.$error">          
+          <template v-if="$v.form.cellphone.$error">
+            <div v-if="!$v.form.cellphone.required" class="text-theme-6 mt-2">
+              Field is required
+            </div>
             <div v-if="!$v.form.cellphone.number" class="text-theme-6 mt-2">
               Cellphone must be a Number
             </div>
@@ -507,7 +498,7 @@
           <label class="flex flex-col sm:flex-row">
             Email
             <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Email address format)</span
+              >(Required, email address format)</span
             >
           </label>
           <input
@@ -517,7 +508,10 @@
             :class="{ 'border-theme-6': $v.form.email.$error }"
             placeholder="example@gmail.com"
           />
-          <template v-if="$v.form.email.$error">            
+          <template v-if="$v.form.email.$error">
+            <div v-if="!$v.form.email.required" class="text-theme-6 mt-2">
+              Field is required
+            </div>
             <div v-if="!$v.form.email.email" class="text-theme-6 mt-2">
               Please enter a valid email address.
             </div>
@@ -526,9 +520,7 @@
         <!-- End: Email Field -->
       </div>
 
-      <div
-        class="p-5 grid grid-cols-12 gap-4 row-gap-3 border-b border-blue-300 "
-      >
+      <div>
         <!-- Start: Date Of Birth Field -->
         <div class="col-span-12 sm:col-span-4">
           <label class="flex flex-col sm:flex-row">
@@ -537,40 +529,19 @@
               >(Required)</span
             >
           </label>
-          <div class="relative w-full mx-auto mt-2">
-            <div
-              class="absolute rounded-l w-10 h-full flex items-center justify-center bg-gray-100 border text-gray-600 dark:bg-dark-1 dark:border-dark-4"
-            >
-              <CalendarIcon class="w-4 h-4" />
-            </div>
-            <LitePicker
-              v-model="$v.form.date_of_birth.$model"
-              :options="{
-                autoApply: false,
-                showWeekNumbers: true,
-                dropdowns: {
-                  minYear: 1900,
-                  maxYear: null,
-                  months: true,
-                  years: true,
-                },
-              }"
-              class="input pl-12 border"
-              :class="{ 'border-theme-6': $v.form.date_of_birth.$error }"
-            />
-          </div>
+          <input
+            v-model="$v.form.date_of_birth.$model"
+            type="text"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.date_of_birth.$error }"
+            placeholder="Surname"
+          />
           <template v-if="$v.form.date_of_birth.$error">
             <div
               v-if="!$v.form.date_of_birth.required"
               class="text-theme-6 mt-2"
             >
               Field is required
-            </div>
-            <div
-              v-if="!$v.form.date_of_birth.maxValue"
-              class="text-theme-6 mt-2"
-            >
-              Date of birth must be less than today .
             </div>
           </template>
         </div>
@@ -627,10 +598,10 @@
             </div>
           </template>
         </div>
-        <!-- End: Referrer Field -->
+        <!-- End: Plan Field -->
       </div>
 
-      <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+      <div>
         <!-- Start: Avatar Field -->
         <div class="col-span-12 sm:col-span-6">
           <label class="flex flex-col sm:flex-row">
@@ -659,7 +630,6 @@
           </label>
           <textarea
             v-model="form.address"
-            class="input w-full border mt-2"
             placeholder="Physical Address here"
           ></textarea>
           <template v-if="$v.form.address.$error">
@@ -682,7 +652,6 @@ import Tabulator from "tabulator-tables";
 import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 import Modal from "../components/Modal";
 
-import { ModelListSelect } from "vue-search-select"; //Import for dropdown search
 //Start: Validation imports
 import Toastify from "toastify-js";
 import { validationMixin } from "vuelidate";
@@ -691,14 +660,12 @@ import {
   minLength,
   maxLength,
   email,
-  requiredIf
 } from "vuelidate/lib/validators";
 //End: Validation imports
 
 export default {
   components: {
     modal: Modal,
-    "model-list-select": ModelListSelect,
   },
   mixins: [validationMixin],
   validations: {
@@ -728,11 +695,11 @@ export default {
         required,
       },
       principal: {
-        required: requiredIf(function() {
-          return this.form.type == "Dependent";
-        }),
+       
       },
-      corporate: {},
+      corporate: {
+        
+      },
       cellphone: {
         minLength: minLength(7),
         maxLength: maxLength(15),
@@ -749,8 +716,7 @@ export default {
         email,
       },
       date_of_birth: {
-        required,
-        maxValue: new Date(),
+        
       },
       gender: {
         required,
@@ -759,8 +725,12 @@ export default {
         minLength: minLength(4),
         maxLength: maxLength(20),
       },
-      avatar: {},
-      address: {},
+      avatar: {
+        
+      },
+      address: {
+        
+      },
     },
   },
   data() {
@@ -774,7 +744,7 @@ export default {
       },
       modalTitle: "Add New Client",
       form: {
-        id: "",
+        id: "",       
         title: "",
         firstname: "",
         surname: "",
@@ -796,37 +766,16 @@ export default {
       isFormOpen: false,
       errors: [],
       edit: false,
-      surnames: [],
-      objectItem: {},
     };
   },
   computed: {
-    //Start: Get all required states
     ...mapState({
       clients: (state) => state.client.clients,
-      plans: (state) => state.plan.plans,
-      groups: (state) => state.group.groups,
     }),
-    //End: Get all required states
-
-    ...mapGetters(["getClients"]), // Get all getters
-
-    //Start: Get only principals to filter in search Principal field
-    principals() {
-      const principals = this.clients.filter(function(client) {
-        return client.type != "Dependent";
-      });
-      return principals;
-    },
-    //End: Get only principals to filter
+    ...mapGetters(["getClients"]),
   },
   mounted() {
-    this.fetchAllPlans();
-    this.fetchAllGroups();
-    this.fetchAllClients().then(() => {
-      this.getTable();
-      this.surnames = this.clients;
-    });
+    this.fetchAllClients().then(() => this.getTable());
     // Redraw table onresize
     window.addEventListener("resize", () => {
       this.table.redraw();
@@ -838,16 +787,10 @@ export default {
   methods: {
     ...mapActions([
       "fetchAllClients",
-      "fetchAllPlans",
-      "fetchAllGroups",
       "addClient",
       "updateClient",
       "deleteClient",
     ]),
-
-    principalDetails(item) {
-      return `${item.firstname} ${item.surname} : ${item.medical_aid_number}`;
-    },
 
     //Start: Add and Update Function
     async addValue() {
@@ -865,13 +808,6 @@ export default {
         }).showToast();
       } else {
         this.$store.commit("CLIENT");
-
-        //Capitalize first letter of some words
-        this.form.firstname = this.$h.capitalizeFirstLetter(
-          this.form.firstname
-        );
-        this.form.surname = this.$h.capitalizeFirstLetter(this.form.surname);
-
         if (this.edit == false) {
           try {
             const response = await this.addClient(this.form);
@@ -913,7 +849,6 @@ export default {
               this.close(); //Clear form fields
             }
           } catch (err) {
-            console.log(err);
             this.$store.commit(
               "CLIENT_CREATE_FAILED",
               err.response.data.errors

@@ -1,11 +1,17 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <div
+      class="flex flex-col sm:flex-row items-center mt-8"
+      :class="{ 'intro-y': !isFormOpen }"
+    >
       <h2 class="text-lg font-medium mr-auto">
         Banks
       </h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-        <button class="button text-white bg-theme-1 shadow-md mr-2">
+        <button
+          @click="isFormOpen = true"
+          class="button text-white bg-theme-1 shadow-md mr-2"
+        >
           Add New Bank
         </button>
         <div class="dropdown ml-auto sm:ml-0">
@@ -34,7 +40,7 @@
       </div>
     </div>
     <!-- BEGIN: HTML Table Data -->
-    <div class="intro-y box p-5 mt-5">
+    <div class="box p-5 mt-5" :class="{ 'intro-y': !isFormOpen }">
       <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
         <form class="xl:flex sm:mr-auto" @submit.prevent="onFilter">
           <div class="sm:flex items-center sm:mr-4">
@@ -95,7 +101,6 @@
             >
               Reset
             </button>
-             
           </div>
         </form>
         <div class="flex mt-5 sm:mt-0">
@@ -151,6 +156,54 @@
       </div>
     </div>
     <!-- END: HTML Table Data -->
+    <!-- START: Modal -->
+    <modal
+      :title="modalTitle"
+      v-if="isFormOpen"
+      @close="close"
+      @submit-form="addValue"
+    >
+      <!-- Start: Bank Name Field -->
+      <div class="col-span-12 sm:col-span-6">
+        <label class="flex flex-col sm:flex-row">
+          Bank Name
+          <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span
+          >
+        </label>
+        <input
+          v-model.trim="$v.form.name.$model"
+          type="text"
+          class="input w-full border mt-2"
+          :class="{ 'border-theme-6': $v.form.name.$error }"
+          placeholder="Bank Name"
+        />
+        <template v-if="$v.form.name.$error">
+          <div v-if="!$v.form.name.required" class="text-theme-6 mt-2">
+            Field is required
+          </div>
+          <div v-if="!$v.form.name.minLength" class="text-theme-6 mt-2">
+            Name must be atleast
+            {{ $v.form.name.$params.minLength.min }} letters.
+          </div>
+          <div v-if="!$v.form.name.maxLength" class="text-theme-6 mt-2">
+            Name must not be more than
+            {{ $v.form.name.$params.maxLength.max }} letters.
+          </div>
+        </template>
+      </div>
+      <!-- End: Bank Name Field -->
+      <div class="col-span-12 sm:col-span-6">
+        <label>Avatar</label>
+        <input
+          v-model="form.avatar"
+          type="text"
+          class="input w-full border mt-2 flex-1"
+          placeholder="Name of the Branch"
+        />
+      </div>
+    </modal>
+    <!-- END: Modal-->
   </div>
 </template>
 
@@ -159,8 +212,28 @@ import xlsx from "xlsx";
 import feather from "feather-icons";
 import Tabulator from "tabulator-tables";
 import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
+import Modal from "../components/Modal";
+
+//Start: Validation imports
+import Toastify from "toastify-js";
+import { validationMixin } from "vuelidate";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
+//End: Validation imports
 
 export default {
+  mixins: [validationMixin],
+  validations: {
+    form: {
+      name: {
+        required,
+        minLength: minLength(2),
+        maxLength: maxLength(50),
+      },
+    },
+  },
+  components: {
+    modal: Modal,
+  },
   data() {
     return {
       table: null,
@@ -169,115 +242,25 @@ export default {
         type: "like",
         value: "",
       },
+      modalTitle: "Add Bank",
+      form: {
+        id: "",
+        name: "",
+        avatar: "",
+      },
+      isFormOpen: false,
+      errors: [],
+      edit: false,
     };
   },
   computed: {
     ...mapState({
       banks: (state) => state.bank.banks,
     }),
-    ...mapGetters(["getBanks"]),
+    ...mapGetters(["isLoading"]),
   },
-  beforeMount() {},
   mounted() {
-   
-    this.fetchAllBanks().then(() => {
-      // let tableData = this.banks;
-      this.table = new Tabulator(this.$refs.table, {
-        layout: "fitColumns",
-        cellHozAlign: "center",
-        data: this.banks,
-        printAsHtml: true,
-        printStyled: true,
-        pagination: "local",
-        paginationSize: 10,
-        paginationSizeSelector: [5, 10, 20, 40, 50, 100], 
-        headerSort: true,
-        columnHeaderSortMulti: true,
-        placeholder: "No matching records found",
-        columns: [
-          // For HTML table
-          {
-            title: "AVATAR",
-            field: "avatar",
-            hozAlign: "center",
-            vertAlign: "middle",
-            print: false,
-            download: false,
-          },
-          {
-            title: "BANK NAME",
-            field: "name",
-            hozAlign: "center",
-            vertAlign: "middle",
-            print: false,
-            download: false,
-          },
-          {
-            title: "STATUS",
-            field: "status",
-            hozAlign: "center",
-            vertAlign: "middle",
-            print: false,
-            download: false,
-            formatter(cell) {
-              return `<div class="flex items-center lg:justify-center ${
-                cell.getData().status  == "Active"  ? "text-theme-9" : "text-theme-6"
-              }">
-              <i data-feather="check-square" class="w-4 h-4 mr-2"></i> ${
-                cell.getData().status  == "Active"  ? "Active" : "Inactive"
-              }
-            </div>`;
-            },
-          },
-          {
-            title: "ACTIONS",
-            field: "actions",
-            hozAlign: "center",
-            vertAlign: "middle",
-            print: false,
-            download: false,
-            formatter() {
-              return `<div class="flex lg:justify-center items-center">
-              <a class="flex items-center mr-3" @click="editValue()">
-                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
-              </a>
-              <a
-                    class="flex items-center text-theme-6"
-                    href="javascript:;"
-                    @click.prevent="deleteValue(1)"
-                  >
-                    <Trash2Icon class="w-4 h-4 mr-1" /> Delete
-                  </a>
-            </div>`;
-            },
-          },
-
-          // For print format
-          {
-            title: "BANK NAME",
-            field: "name",
-            visible: false,
-            print: true,
-            download: true,
-          },
-          {
-            title: "STATUS",
-            field: "status",
-            visible: false,
-            print: true,
-            download: true,
-            formatterPrint(cell) {
-              return cell.getValue() ? "Active" : "Inactive";
-            },
-          },
-        ],
-        renderComplete() {
-          feather.replace({
-            "stroke-width": 1.5,
-          });
-        },
-      });
-    });
+    this.fetchAllBanks().then(() => this.getTable());
 
     // Redraw table onresize
     window.addEventListener("resize", () => {
@@ -288,35 +271,84 @@ export default {
     });
   },
   methods: {
-    ...mapActions(["fetchAllBanks", "addBranch", "deleteBank", "updateBranch"]),
-    save() {
-      if (this.edit == false) {
-        this.addBranch(this.form).then((response) => {
-          if (response) {
-            Swal.fire(
-              "New Branch Saved!",
-              "You now have a branch called " + this.form.name,
-              "success"
-            );
-            this.getBranches(); //Get All branches list
-            this.form.reset(); //Clear form fields
-            this.showModal = "modal"; //Close Modal
-          } else {
-            console.log("There was an error");
-          }
-        }); //Submit to Store Actions
+    ...mapActions(["fetchAllBanks", "addBank", "updateBank", "deleteBank"]),
+
+    //Start: Add and Update Function
+    async addValue() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        Toastify({
+          text: "Validation failed",
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "bottom",
+          position: "left",
+          backgroundColor: "#D32929",
+          stopOnFocus: true,
+        }).showToast();
       } else {
-        this.updateBranch(this.form);
-        this.getBranches();
-        this.showModal = false;
-        Swal.fire(
-          "Branch Updated",
-          "You updated information of branch " + this.form.name,
-          "success"
-        );
+        this.$store.commit("BANK");
+
+        //Capitalize first letter of some words
+        this.form.name = this.$h.capitalizeFirstLetter(this.form.name);
+
+        if (this.edit == false) {
+          try {
+            const response = await this.addBank(this.form);
+            if (response) {
+              Swal.fire(
+                "New Branch Saved!",
+                "You now have a branch called " + this.form.name,
+                "success"
+              );
+              this.getTable();
+              this.close(); //Clear form fields
+            }
+          } catch (err) {
+            this.$store.commit("BANK_CREATE_FAILED", err.response.data.errors);
+            Toastify({
+              text: "Failed to save",
+              duration: 3000,
+              newWindow: true,
+              close: true,
+              gravity: "bottom",
+              position: "left",
+              backgroundColor: "#D32929",
+              stopOnFocus: true,
+            }).showToast();
+          }
+        } else {
+          try {
+            const response = await this.updateBank(this.form);
+            if (response) {
+              Swal.fire(
+                "Bank Updated",
+                "You updated " + this.form.name + " successfully",
+                "success"
+              );
+              this.getTable();
+              this.close(); //Clear form fields
+            }
+          } catch (err) {
+            this.$store.commit("BANK_CREATE_FAILED", err.response.data.errors);
+            Toastify({
+              text: "Failed to save",
+              duration: 3000,
+              newWindow: true,
+              close: true,
+              gravity: "bottom",
+              position: "left",
+              backgroundColor: "#D32929",
+              stopOnFocus: true,
+            }).showToast();
+          }
+        }
       }
     },
-    deleteValue(id) {
+    //End: Add and Update Function
+    //Start: Delete function
+    deleteValue(e, cell) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -327,25 +359,154 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.deleteBank(id).then(() => {
-            Swal.fire("Deleted!", "Bank has been deleted.", "success");
-          }).catch(err =>{
-            console.log(err)
-          });
+          this.deleteBank(cell.getData().id)
+            .then(() => {
+              this.getTable();
+              Swal.fire("Deleted!", "Bank has been deleted.", "success");
+            })
+            .catch((err) => {
+              console.log(err);
+              Toastify({
+                text: err,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "bottom",
+                position: "left",
+                backgroundColor: "#D32929",
+                stopOnFocus: true,
+              }).showToast();
+            });
         }
       });
     },
-    editValue(form) {
-      this.form.reset();
-      this.edit = true;
-      this.form.id = form.id;
-      this.form.name = form.name;
-      this.form.phone = form.phone;
-      this.form.email = form.email;
-      this.form.address = form.address;
-      this.modalTitle = "Edit Branch";
-      this.showModal = true;
+    //End: Delete function
+
+    //Start: Fill the table data
+    getTable() {
+      this.fetchAllBanks().then(() => {
+        let tableData = this.banks;
+        this.table = new Tabulator(this.$refs.table, {
+          layout: "fitColumns",
+          cellHozAlign: "center",
+          data: tableData,
+          printAsHtml: true,
+          printStyled: true,
+          pagination: "local",
+          paginationSize: 10,
+          paginationSizeSelector: [5, 10, 20, 40, 50, 100],
+          headerSort: true,
+          columnHeaderSortMulti: true,
+          placeholder: "No matching records found",
+          columns: [
+            // For HTML table
+            {
+              title: "AVATAR",
+              field: "avatar",
+              hozAlign: "center",
+              vertAlign: "middle",
+              print: false,
+              download: false,
+            },
+            {
+              title: "BANK NAME",
+              field: "name",
+              hozAlign: "center",
+              vertAlign: "middle",
+              print: false,
+              download: false,
+            },
+            {
+              title: "STATUS",
+              field: "status",
+              hozAlign: "center",
+              vertAlign: "middle",
+              print: false,
+              download: false,
+              formatter(cell) {
+                return `<div class="flex items-center lg:justify-center ${
+                  cell.getData().status == "Active"
+                    ? "text-theme-9"
+                    : "text-theme-6"
+                }">
+              <i data-feather="check-square" class="w-4 h-4 mr-2"></i> ${
+                cell.getData().status == "Active" ? "Active" : "Inactive"
+              }
+            </div>`;
+              },
+            },
+            {
+              title: "EDIT",
+              field: "edit",
+              hozAlign: "center",
+              vertAlign: "middle",
+              print: false,
+              download: false,
+              formatter() {
+                return `<div class="flex lg:justify-center items-center">              
+              <a class="flex items-center mr-3" href="javascript:;">
+                <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
+              </a>
+            </div>`;
+              },
+              cellClick: this.editValue,
+            },
+            {
+              title: "DELETE",
+              field: "delete",
+              hozAlign: "center",
+              vertAlign: "middle",
+              print: false,
+              download: false,
+              formatter() {
+                return `<div class="flex lg:justify-center items-center">              
+              <a class="flex items-center text-theme-6" href="javascript:;">
+                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
+              </a>
+            </div>`;
+              },
+              cellClick: this.deleteValue,
+            },
+
+            // For print format
+            {
+              title: "BANK NAME",
+              field: "name",
+              visible: false,
+              print: true,
+              download: true,
+            },
+            {
+              title: "STATUS",
+              field: "status",
+              visible: false,
+              print: true,
+              download: true,
+              formatterPrint(cell) {
+                return cell.getValue() ? "Active" : "Inactive";
+              },
+            },
+          ],
+          renderComplete() {
+            feather.replace({
+              "stroke-width": 1.5,
+            });
+          },
+        });
+      });
     },
+    //End: Fill the table data
+
+    //Start: Preparing to update function
+    editValue(e, cell) {
+      this.edit = true;
+      this.form.id = cell.getData().id;
+      this.form.name = cell.getData().name;
+      this.form.avatar = cell.getData().avatar;
+      this.modalTitle = "Edit Bank";
+      this.isFormOpen = true;
+    },
+    //End: Preparing to update function
 
     // Filter function
     onFilter() {
@@ -386,6 +547,11 @@ export default {
     // Print
     onPrint() {
       this.table.print();
+    },
+    close() {
+      this.isFormOpen = false;
+      this.form.name = "";
+      this.form.avatar = "";
     },
   },
 };

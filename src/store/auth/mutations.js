@@ -11,7 +11,6 @@ export const LOGIN_SUCCESS = (state, payload) => {
     token: payload.token,
     roles:payload.roles
   });
-  //state.userRoles = payload.token
 
   sessionStorage.setItem("user", JSON.stringify(state.currentUser));
 };

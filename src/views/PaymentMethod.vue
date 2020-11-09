@@ -21,12 +21,14 @@
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
-                <i data-feather="credit-card" class="w-4 h-4 mr-2" /> New Payment Method
+                <i data-feather="credit-card" class="w-4 h-4 mr-2" /> New
+                Payment Method
               </a>
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
-                <i data-feather="dollar-sign" class="w-4 h-4 mr-2" /> New Payment
+                <i data-feather="dollar-sign" class="w-4 h-4 mr-2" /> New
+                Payment
               </a>
             </div>
           </div>
@@ -44,10 +46,10 @@
             <select
               v-model="filter.field"
               class="input w-full sm:w-32 xxl:w-full mt-2 sm:mt-0 sm:w-auto border"
-            >            
+            >
               <option value="name">
                 PAYMENT METHOD
-              </option>              
+              </option>
             </select>
           </div>
           <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
@@ -95,7 +97,6 @@
             >
               Reset
             </button>
-             
           </div>
         </form>
         <div class="flex mt-5 sm:mt-0">
@@ -175,13 +176,12 @@ export default {
     ...mapState({
       payment_methods: (state) => state.payment_method.payment_methods,
     }),
-    ...mapGetters(["getLimits"]),
+    ...mapGetters(["getPaymentMethods"]),
   },
   mounted() {
-   
     this.fetchAllPaymentMethods().then(() => {
-      let tableData = this.payment_methods;
-      this.table = new Tabulator(this.$refs.table, { 
+      let tableData = this.getPaymentMethods;
+      this.table = new Tabulator(this.$refs.table, {
         layout: "fitColumns",
         cellHozAlign: "center",
         data: tableData,
@@ -189,7 +189,7 @@ export default {
         printStyled: true,
         pagination: "local",
         paginationSize: 10,
-        paginationSizeSelector: [5, 10, 20, 40, 50, 100], 
+        paginationSizeSelector: [5, 10, 20, 40, 50, 100],
         headerSort: true,
         columnHeaderSortMulti: true,
         placeholder: "No matching records found",
@@ -210,32 +210,42 @@ export default {
             vertAlign: "middle",
             print: false,
             download: false,
-          },          
+          },
           {
-            title: "ACTIONS",
-            field: "actions",
+            title: "EDIT",
+            field: "edit",
             hozAlign: "center",
             vertAlign: "middle",
             print: false,
             download: false,
             formatter() {
-              return `<div class="flex lg:justify-center items-center">
-              <a class="flex items-center mr-3" @click="editValue()">
+              return `<div class="flex lg:justify-center items-center">              
+              <a class="flex items-center mr-3" href="">
                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
               </a>
-              <a
-                    class="flex items-center text-theme-6"
-                    href="javascript:;"
-                    @click.prevent="deleteValue(1)"
-                  >
-                    <Trash2Icon class="w-4 h-4 mr-1" /> Delete
-                  </a>
             </div>`;
             },
+            cellClick: this.editValue,
+          },         
+          {
+            title: "DELETE",
+            field: "delete",
+            hozAlign: "center",
+            vertAlign: "middle",
+            print: false,
+            download: false,
+            formatter() {
+              return `<div class="flex lg:justify-center items-center">              
+              <a class="flex items-center text-theme-6" href="javascript:;">
+                <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
+              </a>
+            </div>`;
+            },
+            cellClick: this.deleteValue,
           },
 
           // For print format
-        {
+          {
             title: "ID",
             field: "id",
             visible: false,
@@ -248,7 +258,7 @@ export default {
             visible: false,
             print: true,
             download: true,
-          }             
+          },
         ],
         renderComplete() {
           feather.replace({
@@ -267,7 +277,12 @@ export default {
     });
   },
   methods: {
-    ...mapActions(["fetchAllPaymentMethods", "addBranch", "deleteBank", "updateBranch"]),
+    ...mapActions([
+      "fetchAllPaymentMethods",
+      "addBranch",
+      "deletePaymentMethod",
+      "updateBranch",
+    ]),
     save() {
       if (this.edit == false) {
         this.addBranch(this.form).then((response) => {
@@ -281,7 +296,6 @@ export default {
             this.form.reset(); //Clear form fields
             this.showModal = "modal"; //Close Modal
           } else {
-            console.log("There was an error");
           }
         }); //Submit to Store Actions
       } else {
@@ -295,7 +309,7 @@ export default {
         );
       }
     },
-    deleteValue(id) {
+    deleteValue(e, cell) {   
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -306,15 +320,16 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.deleteBank(id).then(() => {
-            Swal.fire("Deleted!", "Bank has been deleted.", "success");
-          }).catch(err =>{
-            console.log(err)
-          });
+          this.deletePaymentMethod(cell.getData().id)
+            .then(() => {
+              Swal.fire("Deleted!", "Bank has been deleted.", "success");
+            })
+            .catch((err) => {});
         }
       });
     },
-    editValue(form) {
+    editValue(e, cell) {
+      let form = cell.getData()
       this.form.reset();
       this.edit = true;
       this.form.id = form.id;

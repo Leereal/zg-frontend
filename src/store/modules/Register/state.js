@@ -1,4 +1,6 @@
 export default {
     registerLoading: false,
-    registration_error:'',    
+    changePasswordLoading:false,
+    registration_error:'',  
+    change_password_error:'', 
 };

@@ -9,8 +9,18 @@ export const fetchAllBanks = async ({ commit }) => {
   throw new Error("Error");
 };
 
-export const createBank= async ({ commit }, bank) => {
+export const addBank= async ({ commit }, bank) => {
   const response = await Bank.store(bank);
+  if (response.status == 201) {
+    const payload = await response;
+    commit("BANK_CREATE_SUCCESS");
+    return payload;
+  }  
+  throw new Error("Error");
+};
+
+export const updateBank= async ({ commit }, bank) => {
+  const response = await Bank.update(bank);
   if (response.status == 200) {
     const payload = await response;
     commit("BANK_CREATE_SUCCESS");
@@ -19,12 +29,10 @@ export const createBank= async ({ commit }, bank) => {
   throw new Error("Error");
 };
 
-export const deleteBank = async ({ commit }, id) => {
+export const deleteBank = async (id) => {
   const response = await Bank.delete(id);
   if (response.status == 200) {
-    const payload = await response;
-    commit("DELETE_BANK");
-    return payload;
+    return response;
   }  
   throw new Error("Error");
 };

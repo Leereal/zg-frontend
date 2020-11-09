@@ -184,16 +184,16 @@ const routes = [
     name: "sp_register",
     component: SPRegister,
     // meta: { requiresAuth: true },
-  },
+  },  
   {
-    path: "/", 
+    path: "/",
     name: "home",
     component: Home,
     // meta: { requiresAuth: true },
-  },
+  },  
   {
     path: "*",
-    component: Home
+    redirect: "/"
   },
   
 ];
@@ -221,14 +221,14 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath }
       })      
     }
-    else if (store.state.auth.isLoggedIn && (to.path == '/login' || to.path == '/register') ) {
-      next({
-        path: '/dashboard',
-        query: { redirect: to.fullPath }
-      })      
-    } else {
+     else {
       next()
     } 
+  }else if (store.state.auth.isLoggedIn && ['/login','/register','/home','/'].includes(to.path)) {
+    next({
+      path: '/dashboard',
+      query: { redirect: to.fullPath }
+    })      
   } else {   
     next() // make sure to always call next()!
   }

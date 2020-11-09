@@ -143,7 +143,13 @@
                 </template>
               </div>
             </div>
-            <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+            <div
+              v-if="isLoading"
+              class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center"
+            >
+              <LoadingIcon icon="three-dots" class="w-8 h-8" />
+            </div>
+            <div v-else class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
               <button
                 class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top"
                 @click="save"
@@ -160,11 +166,11 @@
             </div>
             <template v-if="isRegistrationError">
               <div
-                class="text-theme-6 mt-2"
                 v-for="(err, index) in isRegistrationError"
                 :key="index"
+                class="text-theme-6 mt-2"
               >
-                {{ err  }}
+                {{ err }}
               </div>
             </template>
           </div>
@@ -217,6 +223,19 @@ export default {
       repeatPassword: "",
     };
   },
+  computed: {
+    isLoading() {
+      return this.$store.getters.isLoading;
+    },
+    isRegistrationError() {
+      return this.$store.getters.registrationError;
+    },
+  },
+  mounted() {
+    cash("body")
+      .removeClass("app")
+      .addClass("login");
+  },
   methods: {
     save() {
       this.$v.$touch();
@@ -232,7 +251,7 @@ export default {
           stopOnFocus: true,
         }).showToast();
       } else {
-        this.$store.commit("REGISTER");
+        this.$store.commit("LOADING");
         this.$store
           .dispatch("register", {
             email: this.email,
@@ -241,7 +260,6 @@ export default {
             employee_code: this.employee_code,
           })
           .then((res) => {
-            console.log(res)
             Toastify({
               text: "Registration success!",
               duration: 3000,
@@ -256,6 +274,7 @@ export default {
           })
           .catch((err) => {
             this.$store.commit("REGISTRATION_FAILED", err.response.data.errors);
+            this.$store.commit("CREATE_FAILED");
             Toastify({
               text:
                 "Registration failed. Please check your details and try again",
@@ -270,19 +289,6 @@ export default {
           });
       }
     },
-  },
-  computed: {
-    isRegistrationLoading() {
-      return this.$store.getters.isRegistrationLoading;
-    },
-    isRegistrationError() {
-      return this.$store.getters.registrationError;
-    },
-  },
-  mounted() {
-    cash("body")
-      .removeClass("app")
-      .addClass("login");
   },
 };
 </script>

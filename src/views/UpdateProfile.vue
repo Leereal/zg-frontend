@@ -32,7 +32,7 @@
                       class="rounded-md"
                       alt="Midone Tailwind HTML Admin Template"
                       :src="require(`@/assets/images/${$f()[0].photos[0]}`)"
-                    />
+                    >
                     <Tippy
                       tag="div"
                       content="Remove this profile photo?"
@@ -51,7 +51,7 @@
                     <input
                       type="file"
                       class="w-full h-full top-0 left-0 absolute opacity-0"
-                    />
+                    >
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
                     placeholder="Input text"
                     :value="$f()[0].users[0].name"
                     disabled
-                  />
+                  >
                 </div>
                 <div class="mt-3">
                   <label>Nearest MRT Station</label>
@@ -128,8 +128,7 @@
                     class="input w-full border mt-2"
                     placeholder="Adress"
                   >
-10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea
-                  >
+10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea>
                 </div>
                 <button
                   type="button"
@@ -162,7 +161,7 @@
                     placeholder="Input text"
                     :value="$f()[0].users[0].email"
                     disabled
-                  />
+                  >
                 </div>
                 <div class="mt-3">
                   <label>Name</label>
@@ -172,7 +171,7 @@
                     placeholder="Input text"
                     :value="$f()[0].users[0].name"
                     disabled
-                  />
+                  >
                 </div>
                 <div class="mt-3">
                   <label>ID Type</label>
@@ -189,7 +188,7 @@
                     class="input w-full border mt-2"
                     placeholder="Input text"
                     value="357821204950001"
-                  />
+                  >
                 </div>
               </div>
               <div class="col-span-12 xl:col-span-6">
@@ -200,7 +199,7 @@
                     class="input w-full border mt-2"
                     placeholder="Input text"
                     value="65570828"
-                  />
+                  >
                 </div>
                 <div class="mt-3">
                   <label>Address</label>
@@ -209,7 +208,7 @@
                     class="input w-full border mt-2"
                     placeholder="Input text"
                     value="10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore"
-                  />
+                  >
                 </div>
                 <div class="mt-3">
                   <label>Bank Name</label>
@@ -237,12 +236,15 @@
                     class="input w-full border mt-2"
                     placeholder="Input text"
                     value="DBS Current 011-903573-0"
-                  />
+                  >
                 </div>
               </div>
             </div>
             <div class="flex justify-end mt-4">
-              <a href="" class="text-theme-6 flex items-center">
+              <a
+                href=""
+                class="text-theme-6 flex items-center"
+              >
                 <Trash2Icon class="w-4 h-4 mr-1" /> Delete Account
               </a>
               <button

@@ -6,6 +6,6 @@ export const paymentMethodError = (state) => {
     return state.payment_method_error;
 };  
 
-export const getPaymentMethod = (state) => {
+export const getPaymentMethods = (state) => {
     return state.payment_methods;
 };

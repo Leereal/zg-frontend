@@ -19,7 +19,10 @@
               My System Roles
             </h2>
           </div>
-          <div id="row-states-table" class="p-5">
+          <div
+            id="row-states-table"
+            class="p-5"
+          >
             <div class="preview">
               <div class="overflow-x-auto">
                 <table class="table">
@@ -43,22 +46,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="role in roles" :key="role.id"  class="bg-theme-1 text-white"> 
+                    <tr
+                      v-for="role in roles"
+                      :key="role.id"
+                      class="bg-theme-1 text-white"
+                    > 
                       <td class="border-b dark:border-dark-5">
-                        {{role.name}}
+                        {{ role.name }}
                       </td> 
                       <td class="border-b dark:border-dark-5">
                         <div
                           class="w-full sm:w-auto flex items-center sm:ml-auto mt-3 sm:mt-0"
                         >
                           <div class="mr-3">
-                            Switch To Use {{role.name}} Roles
+                            Switch To Use {{ role.name }} Roles
                           </div>
                           <input
                             data-target="#row-states-table"
                             class="show-code input input--switch bg-green-300 border"
                             type="checkbox"
-                          />
+                          >
                         </div>
                       </td>
                       <td class="border-b dark:border-dark-5">
@@ -77,7 +84,10 @@
                 <FileIcon class="w-4 h-4 mr-2" /> Copy example code
               </button>
               <div class="overflow-y-auto h-64 mt-3">
-                <Highlight id="copy-row-states-table" class="source-preview">
+                <Highlight
+                  id="copy-row-states-table"
+                  class="source-preview"
+                >
                   <code
                     class="text-xs p-0 rounded-md html pl-5 pt-8 pb-4 -mb-10 -mt-10"
                   >
@@ -449,7 +459,10 @@
               Top Products
             </h2>
             <div class="dropdown ml-auto">
-              <a class="dropdown-toggle w-5 h-5 block" href="javascript:;">
+              <a
+                class="dropdown-toggle w-5 h-5 block"
+                href="javascript:;"
+              >
                 <MoreHorizontalIcon
                   class="w-5 h-5 text-gray-700 dark:text-gray-300"
                 />
@@ -504,10 +517,16 @@
               </a>
             </div>
             <div class="tab-content mt-8">
-              <div id="laravel" class="tab-content__pane active">
+              <div
+                id="laravel"
+                class="tab-content__pane active"
+              >
                 <div class="flex flex-col sm:flex-row items-center">
                   <div class="mr-auto">
-                    <a href="" class="font-medium">Wordpress Template</a>
+                    <a
+                      href=""
+                      class="font-medium"
+                    >Wordpress Template</a>
                     <div class="text-gray-600 mt-1">
                       HTML, PHP, Mysql
                     </div>
@@ -525,7 +544,10 @@
                 </div>
                 <div class="flex flex-col sm:flex-row items-center mt-5">
                   <div class="mr-auto">
-                    <a href="" class="font-medium">Laravel Template</a>
+                    <a
+                      href=""
+                      class="font-medium"
+                    >Laravel Template</a>
                     <div class="text-gray-600 mt-1">
                       PHP, Mysql
                     </div>
@@ -543,7 +565,10 @@
                 </div>
                 <div class="flex flex-col sm:flex-row items-center mt-5">
                   <div class="mr-auto">
-                    <a href="" class="font-medium">Tailwind HTML Template</a>
+                    <a
+                      href=""
+                      class="font-medium"
+                    >Tailwind HTML Template</a>
                     <div class="text-gray-600 mt-1">
                       HTML, CSS, JS
                     </div>
@@ -573,7 +598,10 @@
               Work In Progress
             </h2>
             <div class="dropdown ml-auto sm:hidden">
-              <a class="dropdown-toggle w-5 h-5 block" href="javascript:;">
+              <a
+                class="dropdown-toggle w-5 h-5 block"
+                href="javascript:;"
+              >
                 <MoreHorizontalIcon
                   class="w-5 h-5 text-gray-700 dark:text-gray-300"
                 />
@@ -585,15 +613,13 @@
                     data-toggle="tab"
                     data-target="#new"
                     class="block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >New</a
-                  >
+                  >New</a>
                   <a
                     href="javascript:;"
                     data-toggle="tab"
                     data-target="#last-week"
                     class="block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >Last Week</a
-                  >
+                  >Last Week</a>
                 </div>
               </div>
             </div>
@@ -603,20 +629,21 @@
                 data-target="#work-in-progress-new"
                 href="javascript:;"
                 class="py-5 ml-6 active"
-                >New</a
-              >
+              >New</a>
               <a
                 data-toggle="tab"
                 data-target="#work-in-progress-last-week"
                 href="javascript:;"
                 class="py-5 ml-6"
-                >Last Week</a
-              >
+              >Last Week</a>
             </div>
           </div>
           <div class="p-5">
             <div class="tab-content">
-              <div id="work-in-progress-new" class="tab-content__pane active">
+              <div
+                id="work-in-progress-new"
+                class="tab-content__pane active"
+              >
                 <div>
                   <div class="flex">
                     <div class="text-gray-700 dark:text-gray-300 mr-auto">
@@ -665,8 +692,7 @@
                 <a
                   href=""
                   class="button w-40 mx-auto justify-center block bg-gray-200 dark:bg-dark-5 dark:text-gray-300 text-gray-600 mt-5"
-                  >View More Details</a
-                >
+                >View More Details</a>
               </div>
             </div>
           </div>
@@ -681,7 +707,10 @@
               Latest Tasks
             </h2>
             <div class="dropdown ml-auto sm:hidden">
-              <a class="dropdown-toggle w-5 h-5 block" href="javascript:;">
+              <a
+                class="dropdown-toggle w-5 h-5 block"
+                href="javascript:;"
+              >
                 <MoreHorizontalIcon
                   class="w-5 h-5 text-gray-700 dark:text-gray-300"
                 />
@@ -693,15 +722,13 @@
                     data-toggle="tab"
                     data-target="#new"
                     class="block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >New</a
-                  >
+                  >New</a>
                   <a
                     href="javascript:;"
                     data-toggle="tab"
                     data-target="#last-week"
                     class="block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >Last Week</a
-                  >
+                  >Last Week</a>
                 </div>
               </div>
             </div>
@@ -711,23 +738,27 @@
                 data-target="#latest-tasks-new"
                 href="javascript:;"
                 class="py-5 ml-6 active"
-                >New</a
-              >
+              >New</a>
               <a
                 data-toggle="tab"
                 data-target="#latest-tasks-last-week"
                 href="javascript:;"
                 class="py-5 ml-6"
-                >Last Week</a
-              >
+              >Last Week</a>
             </div>
           </div>
           <div class="p-5">
             <div class="tab-content">
-              <div id="latest-tasks-new" class="tab-content__pane active">
+              <div
+                id="latest-tasks-new"
+                class="tab-content__pane active"
+              >
                 <div class="flex items-center">
                   <div class="border-l-2 border-theme-1 pl-4">
-                    <a href="" class="font-medium">Create New Campaign</a>
+                    <a
+                      href=""
+                      class="font-medium"
+                    >Create New Campaign</a>
                     <div class="text-gray-600">
                       10:00 AM
                     </div>
@@ -735,11 +766,14 @@
                   <input
                     class="input input--switch ml-auto border"
                     type="checkbox"
-                  />
+                  >
                 </div>
                 <div class="flex items-center mt-5">
                   <div class="border-l-2 border-theme-1 pl-4">
-                    <a href="" class="font-medium">Meeting With Client</a>
+                    <a
+                      href=""
+                      class="font-medium"
+                    >Meeting With Client</a>
                     <div class="text-gray-600">
                       02:00 PM
                     </div>
@@ -747,11 +781,14 @@
                   <input
                     class="input input--switch ml-auto border"
                     type="checkbox"
-                  />
+                  >
                 </div>
                 <div class="flex items-center mt-5">
                   <div class="border-l-2 border-theme-1 pl-4">
-                    <a href="" class="font-medium">Create New Repository</a>
+                    <a
+                      href=""
+                      class="font-medium"
+                    >Create New Repository</a>
                     <div class="text-gray-600">
                       04:00 PM
                     </div>
@@ -759,7 +796,7 @@
                   <input
                     class="input input--switch ml-auto border"
                     type="checkbox"
-                  />
+                  >
                 </div>
               </div>
             </div>
@@ -863,28 +900,23 @@
                     <a
                       href=""
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                      >January</a
-                    >
+                    >January</a>
                     <a
                       href=""
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                      >February</a
-                    >
+                    >February</a>
                     <a
                       href=""
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                      >March</a
-                    >
+                    >March</a>
                     <a
                       href=""
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                      >June</a
-                    >
+                    >June</a>
                     <a
                       href=""
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                      >July</a
-                    >
+                    >July</a>
                   </div>
                 </div>
               </div>

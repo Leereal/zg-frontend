@@ -407,10 +407,9 @@ export default {
         if (result.isConfirmed) {
           this.deletePayment(cell.getData().id)
             .then(() => {
-              console.log(cell.getRow());
               Swal.fire("Deleted!", "Payment has been deleted.", "success");
             })
-            .catch((err) => { console.log(err)});
+            .catch((err) => {});
         }
       });
     },

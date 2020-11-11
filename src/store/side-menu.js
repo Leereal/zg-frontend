@@ -3,7 +3,7 @@ const state = () => {
     menu: [
       {
         icon: "HomeIcon",
-        pageName: "side-menu-dashboard",
+        pageName: "dashboard",
         title: "Dashboard"
       },
       {

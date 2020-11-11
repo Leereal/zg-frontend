@@ -301,7 +301,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["getBranches", "addBranch", "deleteBranch", "updateBranch"]),
+    ...mapActions(["fetchAllBranches", "addBranch", "deleteBranch", "updateBranch"]),
     addValue() {
       if (this.edit == false) {
         this.addBranch(this.form).then((response) => {
@@ -311,7 +311,7 @@ export default {
               "You now have a branch called " + this.form.name,
               "success"
             );
-            this.getBranches(); //Get All branches list
+            this.fetchAllBranches(); //Get All branches list
             this.form.reset(); //Clear form fields
             this.showModal = "modal"; //Close Modal
           } else {
@@ -320,7 +320,7 @@ export default {
         }); //Submit to Store Actions
       } else {
         this.updateBranch(this.form);
-        this.getBranches();
+        this.fetchAllBranches();
         this.showModal = false;
         Swal.fire(
           "Branch Updated",
@@ -330,7 +330,9 @@ export default {
       }
     },
     deleteValue(branch) {
-      Swal.fire({
+      if(this.$h.isNotAllowed([2,1,4]))
+      {
+        Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -344,6 +346,7 @@ export default {
           Swal.fire("Deleted!", "Branch has been deleted.", "success");
         }
       });
+      }
     },
     editValue(form) {
       this.form.reset();
@@ -364,7 +367,7 @@ export default {
     ...mapGetters(["branchCount"]),
   },
   mounted() {
-    this.getBranches();
+    this.fetchAllBranches();   
   },
 };
 </script>

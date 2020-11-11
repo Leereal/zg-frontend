@@ -344,7 +344,6 @@ export default {
         if (result.isConfirmed) {
           this.deleteCurrency(cell.getData().id)
             .then(() => {
-              console.log(cell.getRow());
               Swal.fire("Deleted!", "Currency has been deleted.", "success");
             })
             .catch((err) => {

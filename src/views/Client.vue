@@ -795,9 +795,7 @@ export default {
       },
       isFormOpen: false,
       errors: [],
-      edit: false,
-      surnames: [],
-      objectItem: {},
+      edit: false
     };
   },
   computed: {
@@ -825,7 +823,6 @@ export default {
     this.fetchAllGroups();
     this.fetchAllClients().then(() => {
       this.getTable();
-      this.surnames = this.clients;
     });
     // Redraw table onresize
     window.addEventListener("resize", () => {
@@ -905,15 +902,14 @@ export default {
             const response = await this.updateClient(this.form);
             if (response) {
               Swal.fire(
-                "Bank Client Updated",
+                "Client Updated",
                 "You updated " + this.form.name + " successfully",
                 "success"
               );
               this.getTable();
               this.close(); //Clear form fields
             }
-          } catch (err) {
-            console.log(err);
+          } catch (err) {     
             this.$store.commit(
               "CLIENT_CREATE_FAILED",
               err.response.data.errors
@@ -945,15 +941,13 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-        if (result.isConfirmed) {
-          console.log(cell.getData().id);
+        if (result.isConfirmed) {         
           this.deleteClient(cell.getData().id)
             .then(() => {
               this.getTable();
               Swal.fire("Deleted!", "Client has been deleted.", "success");
             })
-            .catch((err) => {
-              console.log(err);
+            .catch((err) => {    
               Toastify({
                 text: err,
                 duration: 3000,

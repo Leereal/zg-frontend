@@ -9,8 +9,19 @@ export const fetchAllGroups = async ({ commit }) => {
   throw new Error("Error");
 };
 
-export const createGroups= async ({ commit }, group) => {
+export const addGroup= async ({ commit }, group) => {
   const response = await Group.store(group);
+  if (response.status == 201) {
+    const payload = await response;
+    commit("GROUP_CREATE_SUCCESS");
+    return payload;
+  }  
+  throw new Error("Error");
+};
+
+
+export const updateGroup= async ({ commit }, group) => {
+  const response = await Group.update(group);
   if (response.status == 200) {
     const payload = await response;
     commit("GROUP_CREATE_SUCCESS");
@@ -19,11 +30,11 @@ export const createGroups= async ({ commit }, group) => {
   throw new Error("Error");
 };
 
+
 export const deleteGroup = async ({ commit }, id) => {
   const response = await Group.delete(id);
   if (response.status == 200) {
     const payload = await response;
-    commit("DELETE_GROUP");
     return payload;
   }  
   throw new Error("Error");

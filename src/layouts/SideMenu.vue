@@ -12,7 +12,7 @@
           class="intro-x flex items-center pl-5 pt-4"
         >
           <img
-            alt="Midone Tailwind HTML Admin Template"
+            alt="ZG Medical"
             class="w-6"
             src="@/assets/images/logo.svg"
           >

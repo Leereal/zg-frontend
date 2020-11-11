@@ -24,8 +24,3 @@ export const UPDATE_GROUP= (state,payload) => {
   state.groups.splice(index, 1);
   state.groups.unshift(payload);
 };
-
-export const DELETE_GROUP = (state,payload) => {
- var index = state.groups.findIndex(p => p.id == payload.id);
-    state.groups.splice(index, 1);
-};

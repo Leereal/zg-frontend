@@ -238,7 +238,7 @@ export default {
         this.$store
           .dispatch("login", { email: this.email, password: this.password })
           .then((res) => {
-            this.$router.push("/branch");
+            this.$router.push("/dashboard");
           })
           .catch((error) => {
             this.$store.commit("LOGIN_FAILED", error);

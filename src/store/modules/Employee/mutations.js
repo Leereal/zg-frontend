@@ -24,8 +24,3 @@ export const UPDATE_EMPLOYEE= (state,payload) => {
   state.employees.splice(index, 1);
   state.employees.unshift(payload);
 };
-
-export const DELETE_EMPLOYEE = (state,payload) => {
- var index = state.employees.findIndex(p => p.id == payload.id);
-    state.employees.splice(index, 1);
-};

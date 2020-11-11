@@ -1,17 +1,14 @@
 import Branch from "../../../API/Branch";
 
-export const getBranches = ({ commit }) => {
-  Branch.index().then((response) => {
-    commit("SET_BRANCHES", response.data.data);
-  });
+export const fetchAllBranches = async ({ commit }) => {
+  const response = await Branch.index();
+  if (response.status == 200) {
+    const payload = await response.data.data;   
+    commit("SET_BRANCHES", payload); 
+    return payload;
+  }  
+  throw new Error("Error");
 };
-
-// export const addBranch = ({commit},payload) => {
-//   Branch.store(payload)
-//   .then(response =>{
-//     commit('ADD_BRANCH',response.data.data);
-//   })
-// };
 
 export function addBranch(branch) {
   return new Promise((res, rej) => {

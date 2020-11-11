@@ -6,6 +6,6 @@ export const employeeError = (state) => {
     return state.employee_error;
 };  
 
-export const getEmployee = (state) => {
+export const getEmployees = (state) => {
     return state.employees;
 };

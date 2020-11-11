@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import store from '../store';
 
 export default {
   install(Vue) {
@@ -99,7 +100,7 @@ export default {
           days: days.toString().length < 2 ? "0" + days : days,
           hours: hours.toString().length < 2 ? "0" + hours : hours,
           minutes: minutes.toString().length < 2 ? "0" + minutes : minutes,
-          seconds: seconds.toString().length < 2 ? "0" + seconds : seconds
+          seconds: seconds.toString().length < 2 ? "0" + seconds : seconds,
         };
       },
       isset(obj) {
@@ -123,9 +124,25 @@ export default {
         }
 
         return numbers;
-      }
+      },
+
+      //Custom functions
+
+      //1. Check if user is allowed function
+      isAllowed(allowedRoles) {
+        const currentUserRoles = store.state.auth.currentUser.roles.map(rol => rol.id)
+        return allowedRoles.some((item) => currentUserRoles.includes(item)); //Checking if user has any role similar to allowed roles and return true else false
+      },
+
+      //2. Check if user is not allowed function. If the user role is in the list of not allowed roles. The user can no perform actions
+      isNotAllowed(notAllowedRoles) {
+        const currentUserRoles = store.state.auth.currentUser.roles.map(rol => rol.id)
+        if(notAllowedRoles.some((item) => currentUserRoles.includes(item))){
+          return false
+        } //Checking if user has any role similar to allowed roles and return true else false
+      },
     };
 
     Vue.prototype.$h = helpers;
-  }
+  },
 };

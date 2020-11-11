@@ -163,44 +163,60 @@
       @close="close"
       @submit-form="addValue"
     >
-      <!-- Start: Bank Name Field -->
-      <div class="col-span-12 sm:col-span-6">
-        <label class="flex flex-col sm:flex-row">
-          Bank Name
-          <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-            >(Required)</span
+      <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+        <div class="col-span-12 sm:col-span-6">
+          <div
+            class="w-16 h-16 image-fit"
+            :class="{ 'border-theme-6': $v.form.avatar.$error }"
           >
-        </label>
-        <input
-          v-model.trim="$v.form.name.$model"
-          type="text"
-          class="input w-full border mt-2"
-          :class="{ 'border-theme-6': $v.form.name.$error }"
-          placeholder="Bank Name"
-        />
-        <template v-if="$v.form.name.$error">
-          <div v-if="!$v.form.name.required" class="text-theme-6 mt-2">
-            Field is required
+            <label>Avatar</label>
+            <img :src="imagePreview" alt="icon" @click="openUpload" />
           </div>
-          <div v-if="!$v.form.name.minLength" class="text-theme-6 mt-2">
-            Name must be atleast
-            {{ $v.form.name.$params.minLength.min }} letters.
-          </div>
-          <div v-if="!$v.form.name.maxLength" class="text-theme-6 mt-2">
-            Name must not be more than
-            {{ $v.form.name.$params.maxLength.max }} letters.
-          </div>
-        </template>
-      </div>
-      <!-- End: Bank Name Field -->
-      <div class="col-span-12 sm:col-span-6">
-        <label>Avatar</label>
-        <input
-          v-model="form.avatar"
-          type="text"
-          class="input w-full border mt-2 flex-1"
-          placeholder="Name of the Branch"
-        />
+          <input
+            type="file"
+            name="image"
+            id="file-field"
+            @change="updatePreview"
+            style="display:none;"
+            accept="image/*"
+            ref="formImage"
+          />
+          <template v-if="$v.form.avatar.$error">
+            <div v-if="!$v.form.avatar.required" class="text-theme-6 mt-2">
+              Field is required
+            </div>
+          </template>
+        </div>
+        <!-- Start: Bank Name Field -->
+        <div class="col-span-12 sm:col-span-6">
+          <label class="flex flex-col sm:flex-row">
+            Bank Name
+            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+              >(Required)</span
+            >
+          </label>
+          <input
+            v-model.trim="$v.form.name.$model"
+            type="text"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.name.$error }"
+            placeholder="Bank Name"
+          />
+          <template v-if="$v.form.name.$error">
+            <div v-if="!$v.form.name.required" class="text-theme-6 mt-2">
+              Field is required
+            </div>
+            <div v-if="!$v.form.name.minLength" class="text-theme-6 mt-2">
+              Name must be atleast
+              {{ $v.form.name.$params.minLength.min }} letters.
+            </div>
+            <div v-if="!$v.form.name.maxLength" class="text-theme-6 mt-2">
+              Name must not be more than
+              {{ $v.form.name.$params.maxLength.max }} letters.
+            </div>
+          </template>
+        </div>
+        <!-- End: Bank Name Field -->
       </div>
     </modal>
     <!-- END: Modal-->
@@ -229,6 +245,9 @@ export default {
         minLength: minLength(2),
         maxLength: maxLength(50),
       },
+      avatar: {
+        required,
+      },
     },
   },
   components: {
@@ -249,7 +268,7 @@ export default {
         avatar: "",
       },
       isFormOpen: false,
-      errors: [],
+      imagePreview: require(`@/assets/images/profile-13.jpg`),
       edit: false,
     };
   },
@@ -257,7 +276,7 @@ export default {
     ...mapState({
       banks: (state) => state.bank.banks,
     }),
-    ...mapGetters(["isLoading"]),
+    ...mapGetters(["isBankLoading"]),
   },
   mounted() {
     this.fetchAllBanks().then(() => this.getTable());
@@ -273,8 +292,40 @@ export default {
   methods: {
     ...mapActions(["fetchAllBanks", "addBank", "updateBank", "deleteBank"]),
 
+    openUpload() {
+      document.querySelector("#file-field").click();
+    },
+
+    updatePreview(e) {
+      var pattern = /image-*/;
+      const image = e.target.files[0];
+      this.form.avatar = image;
+      const reader = new FileReader();
+      
+      if (image.type.match(pattern)) {
+        reader.readAsDataURL(image);
+        reader.onload = (e) => {
+          this.imagePreview = e.target.result;          
+        };
+      } else {
+        Toastify({
+          text: "Validation failed",
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "bottom",
+          position: "left",
+          backgroundColor: "#D32929",
+          stopOnFocus: true,
+        }).showToast();
+      }
+    },
+
     //Start: Add and Update Function
     async addValue() {
+      let formData = new FormData();
+    formData.append('name', this.form.name);
+    formData.append('avatar', this.form.avatar);
       this.$v.$touch();
       if (this.$v.$invalid) {
         Toastify({
@@ -295,7 +346,7 @@ export default {
 
         if (this.edit == false) {
           try {
-            const response = await this.addBank(this.form);
+            const response = await this.addBank(formData);
             if (response) {
               Swal.fire(
                 "New Branch Saved!",
@@ -365,7 +416,6 @@ export default {
               Swal.fire("Deleted!", "Bank has been deleted.", "success");
             })
             .catch((err) => {
-              console.log(err);
               Toastify({
                 text: err,
                 duration: 3000,
@@ -443,7 +493,7 @@ export default {
               print: false,
               download: false,
               formatter() {
-                return `<div class="flex lg:justify-center items-center">              
+                return `<div class="flex lg:justify-center items-center">
               <a class="flex items-center mr-3" href="javascript:;">
                 <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit
               </a>
@@ -459,7 +509,7 @@ export default {
               print: false,
               download: false,
               formatter() {
-                return `<div class="flex lg:justify-center items-center">              
+                return `<div class="flex lg:justify-center items-center">
               <a class="flex items-center text-theme-6" href="javascript:;">
                 <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete
               </a>
@@ -552,6 +602,7 @@ export default {
       this.isFormOpen = false;
       this.form.name = "";
       this.form.avatar = "";
+      this.imagePreview = require(`@/assets/images/profile-13.jpg`)
     },
   },
 };

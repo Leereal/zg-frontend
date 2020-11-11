@@ -1,5 +1,5 @@
 {
-  "name": "midone-vue",
+  "name": "zgmedical",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -53,6 +53,7 @@
     "vue-chartjs": "^3.5.0",
     "vue-feather-icons": "^5.1.0",
     "vue-router": "^3.2.0",
+    "vue-search-select": "^2.9.3",
     "vue-slick-carousel": "^1.0.6",
     "vue-tailwind-modal": "^1.0.5",
     "vue-tippy": "^4.5.1",

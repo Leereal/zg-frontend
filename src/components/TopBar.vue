@@ -3,9 +3,15 @@
   <div class="top-bar z-10">
     <!-- BEGIN: Breadcrumb -->
     <div class="-intro-x breadcrumb mr-auto hidden sm:flex">
-      <a href class>Application</a>
+      <a
+        href
+        class
+      >Application</a>
       <ChevronRightIcon class="breadcrumb__icon" />
-      <a href class="breadcrumb--active">Dashboard</a>
+      <a
+        href
+        class="breadcrumb--active"
+      >Dashboard</a>
     </div>
     <!-- END: Breadcrumb -->
     <!-- BEGIN: Search -->
@@ -17,17 +23,26 @@
           placeholder="Search..."
           @focus="showSearchDropdown"
           @blur="hideSearchDropdown"
-        />
+        >
         <SearchIcon class="search__icon dark:text-gray-300" />
       </div>
-      <a class="notification sm:hidden" href>
+      <a
+        class="notification sm:hidden"
+        href
+      >
         <SearchIcon class="notification__icon dark:text-gray-300" />
       </a>
-      <div class="search-result" :class="{ show: searchDropdown }">
+      <div
+        class="search-result"
+        :class="{ show: searchDropdown }"
+      >
         <div class="search-result__content">
-          <div v-for="client in clients" :key="client.id">
+          <div
+            v-for="client in clients"
+            :key="client.id"
+          >
             <div class="search-result__content__title">
-              {{client.firstname + " " + client.surname}}
+              {{ client.firstname + " " + client.surname }}
             </div>
             <div class="mb-5">
               <a               
@@ -37,9 +52,9 @@
                   <img                   
                     class="rounded-full"
                     :src="require(`@/assets/images/user.svg`)"
-                  />
+                  >
                 </div>
-                <div class="ml-3">{{client.surname}}</div>
+                <div class="ml-3">{{ client.surname }}</div>
                 <div
                   class="ml-auto w-48 truncate text-gray-600 text-xs text-right"
                 >
@@ -77,14 +92,17 @@
                 alt="Midone Tailwind HTML Admin Template"
                 class="rounded-full"
                 :src="require(`@/assets/images/${faker.photos[0]}`)"
-              />
+              >
               <div
                 class="w-3 h-3 bg-theme-9 absolute right-0 bottom-0 rounded-full border-2 border-white"
               />
             </div>
             <div class="ml-2 overflow-hidden">
               <div class="flex items-center">
-                <a href="javascript:;" class="font-medium truncate mr-5">
+                <a
+                  href="javascript:;"
+                  class="font-medium truncate mr-5"
+                >
                   {{ faker.users[0].name }}
                 </a>
                 <div class="text-xs text-gray-500 ml-auto whitespace-no-wrap">
@@ -105,7 +123,10 @@
       <div
         class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in"
       >
-        <img alt="ZG Medical" :src="require(`@/assets/images/user.svg`)" />
+        <img
+          alt="ZG Medical"
+          :src="require(`@/assets/images/user.svg`)"
+        >
       </div>
       <div class="dropdown-box w-56">
         <div

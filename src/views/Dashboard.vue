@@ -242,7 +242,7 @@
                 </div>
               </div>
               <div
-                class="py-1 px-2 rounded-full text-xs bg-theme-9 text-white cursor-pointer font-medium"
+                class="py-1 px-2 rounded-full text-xs bg-theme-9 b text-white cursor-pointer font-medium"
               >
                 137 Clients Registered
               </div>

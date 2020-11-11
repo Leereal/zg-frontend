@@ -1,17 +1,23 @@
 <template>
   <div>
     <section
-      @dblclick="$emit('close')"
       class="z-20 h-screen w-screen bg-gray-500 fixed top-0 left-0 opacity-50"
-    ></section>
+      @dblclick="$emit('close')"
+    />
     <!-- <div id="modal" class="flex w-full"> -->
-    <div id="modal" class=" absolute inset-0 max-h-screen">
+    <div
+      id="modal"
+      class=" absolute inset-0 max-h-screen"
+    >
       <div class="preview flex h-full">
         <div
           id="modal-preview"
           class="intro-y m-auto bg-white rounded shadow p-5"
         >
-          <form @submit.prevent id="modal-form">
+          <form
+            id="modal-form"
+            @submit.prevent
+          >
             <div class="modal__content">
               <div
                 class="flex items-center px-5 py-5 sm:py-3 border-b-2 border-gray-200 dark:border-dark-5"
@@ -21,13 +27,16 @@
                 </h2>
               </div>
               <div>               
-                <slot></slot>            
+                <slot />            
               </div>
               <div
                 v-if="isLoading"
                 class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center"
               >
-                <LoadingIcon icon="three-dots" class="w-8 h-8" />
+                <LoadingIcon
+                  icon="three-dots"
+                  class="w-8 h-8"
+                />
               </div>
               <div
                 v-else

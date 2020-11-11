@@ -5,9 +5,11 @@
         Payments
       </h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-        <button class="button text-white bg-theme-1 shadow-md mr-2">
-          Add New Payment
-        </button>
+        <router-link to="/make-payment">
+          <button class="button text-white bg-theme-1 shadow-md mr-2">
+            Add New Payment
+          </button>
+        </router-link>
         <div class="dropdown ml-auto sm:ml-0">
           <button
             class="dropdown-toggle button px-2 box text-gray-700 dark:text-gray-300"
@@ -18,17 +20,21 @@
           </button>
           <div class="dropdown-box w-40">
             <div class="dropdown-box__content box dark:bg-dark-1 p-2">
+              <router-link to="/make-payment">
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
                 <i data-feather="dollar-sign" class="w-4 h-4 mr-2" /> New
                 Payment
               </a>
-              <a
-                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-              >
-                <i data-feather="user" class="w-4 h-4 mr-2" /> New Client
-              </a>
+              </router-link>
+              <router-link to="/clients">
+                <a
+                  class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+                >
+                  <i data-feather="user" class="w-4 h-4 mr-2" /> New Client
+                </a>
+              </router-link>
             </div>
           </div>
         </div>

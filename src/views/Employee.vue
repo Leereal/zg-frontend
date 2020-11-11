@@ -9,8 +9,8 @@
       </h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <button
-          @click="isFormOpen = true"
           class="button text-white bg-theme-1 shadow-md mr-2"
+          @click="isFormOpen = true"
         >
           Add New Employee
         </button>
@@ -19,7 +19,10 @@
             class="dropdown-toggle button px-2 box text-gray-700 dark:text-gray-300"
           >
             <span class="w-5 h-5 flex items-center justify-center">
-              <i class="w-4 h-4" data-feather="plus" />
+              <i
+                class="w-4 h-4"
+                data-feather="plus"
+              />
             </span>
           </button>
           <div class="dropdown-box w-40">
@@ -27,12 +30,18 @@
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
-                <i data-feather="user-plus" class="w-4 h-4 mr-2" /> New Employee
+                <i
+                  data-feather="user-plus"
+                  class="w-4 h-4 mr-2"
+                /> New Employee
               </a>
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
-                <i data-feather="git-branch" class="w-4 h-4 mr-2" /> New Branch
+                <i
+                  data-feather="git-branch"
+                  class="w-4 h-4 mr-2"
+                /> New Branch
               </a>
             </div>
           </div>
@@ -40,13 +49,19 @@
       </div>
     </div>
     <!-- BEGIN: HTML Table Data -->
-    <div class="box p-5 mt-5" :class="{ 'intro-y': !isFormOpen }">
+    <div
+      class="box p-5 mt-5"
+      :class="{ 'intro-y': !isFormOpen }"
+    >
       <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-        <form class="xl:flex sm:mr-auto" @submit.prevent="onFilter">
+        <form
+          class="xl:flex sm:mr-auto"
+          @submit.prevent="onFilter"
+        >
           <div class="sm:flex items-center sm:mr-4">
-            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-              >Field</label
-            >
+            <label
+              class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Field</label>
             <select
               v-model="filter.field"
               class="input w-full sm:w-32 xxl:w-full mt-2 sm:mt-0 sm:w-auto border"
@@ -60,14 +75,17 @@
             </select>
           </div>
           <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-              >Type</label
-            >
+            <label
+              class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Type</label>
             <select
               v-model="filter.type"
               class="input w-full mt-2 sm:mt-0 sm:w-auto border"
             >
-              <option value="like" selected>
+              <option
+                value="like"
+                selected
+              >
                 like
               </option>
               <option value="=">
@@ -79,15 +97,15 @@
             </select>
           </div>
           <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-              >Value</label
-            >
+            <label
+              class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Value</label>
             <input
               v-model="filter.value"
               type="text"
               class="input w-full sm:w-40 xxl:w-full mt-2 sm:mt-0 border"
               placeholder="Search..."
-            />
+            >
           </div>
           <div class="mt-2 xl:mt-0">
             <button
@@ -111,14 +129,23 @@
             class="button w-1/2 sm:w-auto flex items-center border text-gray-700 mr-2 dark:bg-dark-5 dark:text-gray-300"
             @click="onPrint"
           >
-            <i data-feather="printer" class="w-4 h-4 mr-2" /> Print
+            <i
+              data-feather="printer"
+              class="w-4 h-4 mr-2"
+            /> Print
           </button>
           <div class="dropdown w-1/2 sm:w-auto">
             <button
               class="dropdown-toggle button w-full sm:w-auto flex items-center border text-gray-700 dark:bg-dark-5 dark:text-gray-300"
             >
-              <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export
-              <i data-feather="chevron-down" class="w-4 h-4 ml-auto sm:ml-2" />
+              <i
+                data-feather="file-text"
+                class="w-4 h-4 mr-2"
+              /> Export
+              <i
+                data-feather="chevron-down"
+                class="w-4 h-4 ml-auto sm:ml-2"
+              />
             </button>
             <div class="dropdown-box w-40">
               <div class="dropdown-box__content box dark:bg-dark-1 p-2">
@@ -127,14 +154,20 @@
                   class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                   @click="onExportCsv"
                 >
-                  <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export CSV
+                  <i
+                    data-feather="file-text"
+                    class="w-4 h-4 mr-2"
+                  /> Export CSV
                 </a>
                 <a
                   href="javascript:;"
                   class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                   @click="onExportJson"
                 >
-                  <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export
+                  <i
+                    data-feather="file-text"
+                    class="w-4 h-4 mr-2"
+                  /> Export
                   JSON
                 </a>
                 <a
@@ -142,7 +175,10 @@
                   class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                   @click="onExportXlsx"
                 >
-                  <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export
+                  <i
+                    data-feather="file-text"
+                    class="w-4 h-4 mr-2"
+                  /> Export
                   XLSX
                 </a>
               </div>
@@ -162,8 +198,8 @@
 
     <!-- START: Modal -->
     <modal
-      :title="modalTitle"
       v-if="isFormOpen"
+      :title="modalTitle"
       @close="close"
       @submit-form="addValue"
     >
@@ -174,9 +210,9 @@
         <div class="col-span-12 sm:col-span-6">
           <label class="flex flex-col sm:flex-row">
             First Name
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model="$v.form.firstname.$model"
@@ -184,16 +220,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.firstname.$error }"
             placeholder="First Name"
-          />
+          >
           <template v-if="$v.form.firstname.$error">
-            <div v-if="!$v.form.firstname.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.firstname.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
-            <div v-if="!$v.form.firstname.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.firstname.minLength"
+              class="text-theme-6 mt-2"
+            >
               Name must be atleast
               {{ $v.form.firstname.$params.minLength.min }} letters.
             </div>
-            <div v-if="!$v.form.firstname.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.firstname.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Name must not be more than
               {{ $v.form.firstname.$params.maxLength.max }} letters.
             </div>
@@ -205,9 +250,9 @@
         <div class="col-span-12 sm:col-span-6">
           <label class="flex flex-col sm:flex-row">
             Surname
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model="$v.form.surname.$model"
@@ -215,16 +260,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.surname.$error }"
             placeholder="Surname"
-          />
+          >
           <template v-if="$v.form.surname.$error">
-            <div v-if="!$v.form.surname.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.surname.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
-            <div v-if="!$v.form.surname.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.surname.minLength"
+              class="text-theme-6 mt-2"
+            >
               Surname must be atleast
               {{ $v.form.surname.$params.minLength.min }} letters.
             </div>
-            <div v-if="!$v.form.surname.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.surname.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Surname must not be more than
               {{ $v.form.surname.$params.maxLength.max }} letters.
             </div>
@@ -239,9 +293,9 @@
         <div class="col-span-12 sm:col-span-6">
           <label class="flex flex-col sm:flex-row">
             Cellphone
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model.trim="$v.form.cellphone.$model"
@@ -249,16 +303,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.cellphone.$error }"
             placeholder="0771234567"
-          />
+          >
           <template v-if="$v.form.cellphone.$error">
-            <div v-if="!$v.form.cellphone.number" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.cellphone.number"
+              class="text-theme-6 mt-2"
+            >
               Cellphone must be a Number
             </div>
-            <div v-if="!$v.form.cellphone.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.cellphone.minLength"
+              class="text-theme-6 mt-2"
+            >
               Cellphone must be atleast
               {{ $v.form.cellphone.$params.minLength.min }} numbers.
             </div>
-            <div v-if="!$v.form.cellphone.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.cellphone.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Cellphone must not be more than
               {{ $v.form.cellphone.$params.maxLength.max }} numbers.
             </div>
@@ -269,20 +332,19 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Branch
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <model-list-select
-            :list="branches"
             v-model="$v.form.branch.$model"
+            :list="branches"
             option-value="id"
             :option-text="'name'"
             placeholder="Select Branch"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.branch.$error }"
-          >
-          </model-list-select>
+          />
         </div>
         <!-- End: Branch Field -->
       </div>
@@ -293,16 +355,21 @@
         <div class="col-span-12 sm:col-span-12">
           <label class="flex flex-col sm:flex-row">
             Job Title
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <select
             v-model="$v.form.job_title.$model"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.job_title.$error }"
           >
-            <option disabled value="">Select Job Title</option>
+            <option
+              disabled
+              value=""
+            >
+              Select Job Title
+            </option>
             <option>Administrator</option>
             <option>Claims Officer</option>
             <option>Team Leader</option>
@@ -313,7 +380,10 @@
             <option>Brand Ambassador</option>
           </select>
           <template v-if="$v.form.job_title.$error">
-            <div v-if="!$v.form.job_title.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.job_title.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
           </template>
@@ -365,7 +435,6 @@
       </div>
     </modal>
     <!--END: Modal -->
-
   </div>
 </template>
 

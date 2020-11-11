@@ -10,9 +10,9 @@ export const fetchAllPayments = async ({ commit }) => {
   throw new Error("Error");
 };
 
-export const make_payment = async ({ commit }, payment) => {
+export const addPayment = async ({ commit }, payment) => {
   const response = await Payment.store(payment);
-  if (response.status == 200) {
+  if (response.status == 201) {
     const payload = await response;
     commit("PAYMENT_SUCCESS");
     return payload;

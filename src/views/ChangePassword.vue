@@ -27,7 +27,7 @@
                 type="password"
                 class="input w-full border mt-2"
                 placeholder="Input text"
-              />
+              >
             </div>
             <div class="mt-3">
               <label>New Password</label>
@@ -37,7 +37,7 @@
                 class="input w-full border mt-2"
                 :class="{ 'border-theme-6': $v.form.password.$error }"
                 placeholder="Input text"
-              />
+              >
               <template v-if="$v.form.password.$error">
                 <div
                   v-if="!$v.form.password.required"
@@ -62,7 +62,7 @@
                 class="input w-full border mt-2"
                 :class="{ 'border-theme-6': $v.form.repeatPassword.$error }"
                 placeholder="Input text"
-              />
+              >
               <template v-if="$v.form.repeatPassword.$error">
                 <div
                   v-if="!$v.form.repeatPassword.sameAsPassword"
@@ -76,13 +76,16 @@
               v-if="isChangePasswordLoading"
               class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center"
             >
-              <LoadingIcon icon="three-dots" class="w-8 h-8" />
+              <LoadingIcon
+                icon="three-dots"
+                class="w-8 h-8"
+              />
             </div>
             <div v-else>
               <button
                 type="button"
-                @click="changePassword"
                 class="button bg-theme-1 text-white mt-4"
+                @click="changePassword"
               >
                 Change Password
               </button>

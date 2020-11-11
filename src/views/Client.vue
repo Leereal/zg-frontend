@@ -9,8 +9,8 @@
       </h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <button
-          @click="isFormOpen = true"
           class="button text-white bg-theme-1 shadow-md mr-2"
+          @click="isFormOpen = true"
         >
           Add New Client
         </button>
@@ -19,21 +19,30 @@
             class="dropdown-toggle button px-2 box text-gray-700 dark:text-gray-300"
           >
             <span class="w-5 h-5 flex items-center justify-center">
-              <i class="w-4 h-4" data-feather="plus" />
+              <i
+                class="w-4 h-4"
+                data-feather="plus"
+              />
             </span>
           </button>
           <div class="dropdown-box w-40">
             <div class="dropdown-box__content box dark:bg-dark-1 p-2">
               <a
-                @click="isFormOpen = true"
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+                @click="isFormOpen = true"
               >
-                <i data-feather="user-plus" class="w-4 h-4 mr-2" /> New Client
+                <i
+                  data-feather="user-plus"
+                  class="w-4 h-4 mr-2"
+                /> New Client
               </a>
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
-                <i data-feather="dollar-sign" class="w-4 h-4 mr-2" /> New
+                <i
+                  data-feather="dollar-sign"
+                  class="w-4 h-4 mr-2"
+                /> New
                 Payment
               </a>
             </div>
@@ -42,13 +51,19 @@
       </div>
     </div>
     <!-- BEGIN: HTML Table Data -->
-    <div class="box p-5 mt-5" :class="{ 'intro-y': !isFormOpen }">
+    <div
+      class="box p-5 mt-5"
+      :class="{ 'intro-y': !isFormOpen }"
+    >
       <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-        <form class="xl:flex sm:mr-auto" @submit.prevent="onFilter">
+        <form
+          class="xl:flex sm:mr-auto"
+          @submit.prevent="onFilter"
+        >
           <div class="sm:flex items-center sm:mr-4">
-            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-              >Field</label
-            >
+            <label
+              class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Field</label>
             <select
               v-model="filter.field"
               class="input w-full sm:w-32 xxl:w-full mt-2 sm:mt-0 sm:w-auto border"
@@ -68,14 +83,17 @@
             </select>
           </div>
           <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-              >Type</label
-            >
+            <label
+              class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Type</label>
             <select
               v-model="filter.type"
               class="input w-full mt-2 sm:mt-0 sm:w-auto border"
             >
-              <option value="like" selected>
+              <option
+                value="like"
+                selected
+              >
                 like
               </option>
               <option value="=">
@@ -87,15 +105,15 @@
             </select>
           </div>
           <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
-              >Value</label
-            >
+            <label
+              class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Value</label>
             <input
               v-model="filter.value"
               type="text"
               class="input w-full sm:w-40 xxl:w-full mt-2 sm:mt-0 border"
               placeholder="Search..."
-            />
+            >
           </div>
           <div class="mt-2 xl:mt-0">
             <button
@@ -119,14 +137,23 @@
             class="button w-1/2 sm:w-auto flex items-center border text-gray-700 mr-2 dark:bg-dark-5 dark:text-gray-300"
             @click="onPrint"
           >
-            <i data-feather="printer" class="w-4 h-4 mr-2" /> Print
+            <i
+              data-feather="printer"
+              class="w-4 h-4 mr-2"
+            /> Print
           </button>
           <div class="dropdown w-1/2 sm:w-auto">
             <button
               class="dropdown-toggle button w-full sm:w-auto flex items-center border text-gray-700 dark:bg-dark-5 dark:text-gray-300"
             >
-              <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export
-              <i data-feather="chevron-down" class="w-4 h-4 ml-auto sm:ml-2" />
+              <i
+                data-feather="file-text"
+                class="w-4 h-4 mr-2"
+              /> Export
+              <i
+                data-feather="chevron-down"
+                class="w-4 h-4 ml-auto sm:ml-2"
+              />
             </button>
             <div class="dropdown-box w-40">
               <div class="dropdown-box__content box dark:bg-dark-1 p-2">
@@ -135,14 +162,20 @@
                   class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                   @click="onExportCsv"
                 >
-                  <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export CSV
+                  <i
+                    data-feather="file-text"
+                    class="w-4 h-4 mr-2"
+                  /> Export CSV
                 </a>
                 <a
                   href="javascript:;"
                   class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                   @click="onExportJson"
                 >
-                  <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export
+                  <i
+                    data-feather="file-text"
+                    class="w-4 h-4 mr-2"
+                  /> Export
                   JSON
                 </a>
                 <a
@@ -150,7 +183,10 @@
                   class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                   @click="onExportXlsx"
                 >
-                  <i data-feather="file-text" class="w-4 h-4 mr-2" /> Export
+                  <i
+                    data-feather="file-text"
+                    class="w-4 h-4 mr-2"
+                  /> Export
                   XLSX
                 </a>
               </div>
@@ -170,8 +206,8 @@
 
     <!-- START: Modal -->
     <modal
-      :title="modalTitle"
       v-if="isFormOpen"
+      :title="modalTitle"
       @close="close"
       @submit-form="addValue"
     >
@@ -182,21 +218,29 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Type
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required, Either Principal or Dependent)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required, Either Principal or Dependent)</span>
           </label>
           <select
             v-model="$v.form.type.$model"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.type.$error }"
           >
-            <option disabled value="">Select Type</option>
+            <option
+              disabled
+              value=""
+            >
+              Select Type
+            </option>
             <option>Principal</option>
             <option>Dependent</option>
           </select>
           <template v-if="$v.form.type.$error">
-            <div v-if="!$v.form.type.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.type.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
           </template>
@@ -207,22 +251,24 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Principal
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required if Type is Dependent)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required if Type is Dependent)</span>
           </label>
           <model-list-select
-            :list="principals"
             v-model="form.principal"
+            :list="principals"
             option-value="id"
             :custom-text="principalDetails"
             placeholder="Select Principal"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.principal.$error }"
-          >
-          </model-list-select>
+          />
           <template v-if="$v.form.principal.$error">
-            <div v-if="!$v.form.principal.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.principal.required"
+              class="text-theme-6 mt-2"
+            >
               Principal is requred if client is dependent
             </div>
           </template>
@@ -233,22 +279,24 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Plan
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <model-list-select
-            :list="plans"
             v-model="$v.form.plan.$model"
+            :list="plans"
             option-value="id"
             :option-text="'name'"
             placeholder="Select Plan"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.plan.$error }"
-          >
-          </model-list-select>
+          />
           <template v-if="$v.form.surname.$error">
-            <div v-if="!$v.form.plan.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.plan.required"
+              class="text-theme-6 mt-2"
+            >
               Plan is required
             </div>
           </template>
@@ -259,20 +307,19 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Corporate
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Optional)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Optional)</span>
           </label>
           <model-list-select
-            :list="groups"
             v-model="$v.form.corporate.$model"
+            :list="groups"
             option-value="id"
             :option-text="'name'"
             placeholder="Select Corporate"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.corporate.$error }"
-          >
-          </model-list-select>
+          />
         </div>
         <!-- End: Corporate Field -->
       </div>
@@ -284,22 +331,30 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Title
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <select
             v-model="$v.form.title.$model"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.title.$error }"
           >
-            <option disabled value="">Select Title</option>
+            <option
+              disabled
+              value=""
+            >
+              Select Title
+            </option>
             <option>Mr</option>
             <option>Mrs</option>
             <option>Miss</option>
           </select>
           <template v-if="$v.form.title.$error">
-            <div v-if="!$v.form.title.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.title.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
           </template>
@@ -310,9 +365,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             First Name
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model="$v.form.firstname.$model"
@@ -320,16 +375,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.firstname.$error }"
             placeholder="First Name"
-          />
+          >
           <template v-if="$v.form.firstname.$error">
-            <div v-if="!$v.form.firstname.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.firstname.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
-            <div v-if="!$v.form.firstname.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.firstname.minLength"
+              class="text-theme-6 mt-2"
+            >
               Name must be atleast
               {{ $v.form.firstname.$params.minLength.min }} letters.
             </div>
-            <div v-if="!$v.form.firstname.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.firstname.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Name must not be more than
               {{ $v.form.firstname.$params.maxLength.max }} letters.
             </div>
@@ -341,9 +405,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Surname
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model="$v.form.surname.$model"
@@ -351,16 +415,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.surname.$error }"
             placeholder="Surname"
-          />
+          >
           <template v-if="$v.form.surname.$error">
-            <div v-if="!$v.form.surname.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.surname.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
-            <div v-if="!$v.form.surname.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.surname.minLength"
+              class="text-theme-6 mt-2"
+            >
               Surname must be atleast
               {{ $v.form.surname.$params.minLength.min }} letters.
             </div>
-            <div v-if="!$v.form.surname.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.surname.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Surname must not be more than
               {{ $v.form.surname.$params.maxLength.max }} letters.
             </div>
@@ -372,9 +445,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             ID Number
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required, Format: 29-12345B66)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required, Format: 29-12345B66)</span>
           </label>
           <input
             v-model.trim="$v.form.id_number.$model"
@@ -382,16 +455,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.id_number.$error }"
             placeholder="29-123456T99"
-          />
+          >
           <template v-if="$v.form.id_number.$error">
-            <div v-if="!$v.form.id_number.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.id_number.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
-            <div v-if="!$v.form.id_number.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.id_number.minLength"
+              class="text-theme-6 mt-2"
+            >
               ID Number must be atleast
               {{ $v.form.id_number.$params.minLength.min }} characters.
             </div>
-            <div v-if="!$v.form.id_number.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.id_number.maxLength"
+              class="text-theme-6 mt-2"
+            >
               ID Number must not be more than
               {{ $v.form.id_number.$params.maxLength.max }} character.
             </div>
@@ -407,9 +489,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Cellphone
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model.trim="$v.form.cellphone.$model"
@@ -417,16 +499,25 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.cellphone.$error }"
             placeholder="0771234567"
-          />
+          >
           <template v-if="$v.form.cellphone.$error">          
-            <div v-if="!$v.form.cellphone.number" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.cellphone.number"
+              class="text-theme-6 mt-2"
+            >
               Cellphone must be a Number
             </div>
-            <div v-if="!$v.form.cellphone.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.cellphone.minLength"
+              class="text-theme-6 mt-2"
+            >
               Cellphone must be atleast
               {{ $v.form.cellphone.$params.minLength.min }} numbers.
             </div>
-            <div v-if="!$v.form.cellphone.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.cellphone.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Cellphone must not be more than
               {{ $v.form.cellphone.$params.maxLength.max }} numbers.
             </div>
@@ -438,9 +529,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Home Telephone
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Landline Include Code)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Landline Include Code)</span>
           </label>
           <input
             v-model="$v.form.home_telephone.$model"
@@ -448,7 +539,7 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.home_telephone.$error }"
             placeholder="054 123456"
-          />
+          >
           <template v-if="$v.form.home_telephone.$error">
             <div
               v-if="!$v.form.home_telephone.minLength"
@@ -472,9 +563,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Business Telephone
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Landline Include Code)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Landline Include Code)</span>
           </label>
           <input
             v-model="$v.form.business_telephone.$model"
@@ -482,7 +573,7 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.business_telephone.$error }"
             placeholder="054 123456"
-          />
+          >
           <template v-if="$v.form.business_telephone.$error">
             <div
               v-if="!$v.form.business_telephone.minLength"
@@ -506,9 +597,9 @@
         <div class="col-span-12 sm:col-span-3">
           <label class="flex flex-col sm:flex-row">
             Email
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Email address format)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Email address format)</span>
           </label>
           <input
             v-model.trim="$v.form.email.$model"
@@ -516,9 +607,12 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.email.$error }"
             placeholder="example@gmail.com"
-          />
+          >
           <template v-if="$v.form.email.$error">            
-            <div v-if="!$v.form.email.email" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.email.email"
+              class="text-theme-6 mt-2"
+            >
               Please enter a valid email address.
             </div>
           </template>
@@ -533,9 +627,9 @@
         <div class="col-span-12 sm:col-span-4">
           <label class="flex flex-col sm:flex-row">
             Date Of Birth
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <div class="relative w-full mx-auto mt-2">
             <div
@@ -580,21 +674,33 @@
         <div class="col-span-12 sm:col-span-4">
           <label class="flex flex-col sm:flex-row">
             Gender
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <select
             v-model="$v.form.gender.$model"
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.type.$error }"
           >
-            <option disabled value="">Select Type</option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
+            <option
+              disabled
+              value=""
+            >
+              Select Type
+            </option>
+            <option value="female">
+              Female
+            </option>
+            <option value="male">
+              Male
+            </option>
           </select>
           <template v-if="$v.form.gender.$error">
-            <div v-if="!$v.form.gender.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.gender.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
           </template>
@@ -605,9 +711,9 @@
         <div class="col-span-12 sm:col-span-4">
           <label class="flex flex-col sm:flex-row">
             Referral Code
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model="$v.form.referrer.$model"
@@ -615,13 +721,19 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.referrer.$error }"
             placeholder="Referral Code"
-          />
+          >
           <template v-if="$v.form.referrer.$error">
-            <div v-if="!$v.form.referrer.minLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.referrer.minLength"
+              class="text-theme-6 mt-2"
+            >
               Referral Code must be atleast
               {{ $v.form.referrer.$params.minLength.min }} letters.
             </div>
-            <div v-if="!$v.form.referrer.maxLength" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.referrer.maxLength"
+              class="text-theme-6 mt-2"
+            >
               Referral Code must not be more than
               {{ $v.form.referrer.$params.maxLength.max }} letters.
             </div>
@@ -635,9 +747,9 @@
         <div class="col-span-12 sm:col-span-6">
           <label class="flex flex-col sm:flex-row">
             Avatar
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Required)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
           </label>
           <input
             v-model="$v.form.avatar.$model"
@@ -645,7 +757,7 @@
             class="input w-full border mt-2"
             :class="{ 'border-theme-6': $v.form.avatar.$error }"
             placeholder="file"
-          />
+          >
         </div>
         <!-- End: Avatar Field -->
 
@@ -653,17 +765,20 @@
         <div class="col-span-12 sm:col-span-6">
           <label class="flex flex-col sm:flex-row">
             Address
-            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-              >(Physical Address)</span
-            >
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Physical Address)</span>
           </label>
           <textarea
             v-model="form.address"
             class="input w-full border mt-2"
             placeholder="Physical Address here"
-          ></textarea>
+          />
           <template v-if="$v.form.address.$error">
-            <div v-if="!$v.form.address.required" class="text-theme-6 mt-2">
+            <div
+              v-if="!$v.form.address.required"
+              class="text-theme-6 mt-2"
+            >
               Field is required
             </div>
           </template>

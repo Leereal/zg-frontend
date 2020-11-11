@@ -7,6 +7,11 @@ const state = () => {
         title: "Dashboard"
       },
       {
+        icon: "BriefcaseIcon",
+        pageName: "make-payment",
+        title: "Make Payment"
+      },
+      {
         icon: "CreditCardIcon",
         pageName: "payment-methods",
         title: "Payment Methods"

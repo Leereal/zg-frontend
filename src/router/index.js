@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import SideMenu from "../layouts/SideMenu";
 import Dashboard from "../views/Dashboard";
 import Payment from "../views/Payment";
+import Receipt from "../views/Receipt";
+import MakePayment from "../views/MakePayment";
 import Branch from "../views/Branch";
 import Bank from "../views/Bank";
 import Employee from "../views/Employee";
@@ -84,6 +86,18 @@ const routes = [
         path: "payments",
         name: "payments",
         component: Payment,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "make-payment",
+        name: "make-payment",
+        component: MakePayment,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "receipt",
+        name: "receipt",
+        component: Receipt,
         meta: { requiresAuth: true },
       },
       {

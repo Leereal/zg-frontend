@@ -5,12 +5,15 @@
       <div class="block xl:grid grid-cols-2 gap-4">
         <!-- BEGIN: Register Info -->
         <div class="hidden xl:flex flex-col min-h-screen">
-          <a href="" class="-intro-x flex items-center pt-5">
+          <a
+            href=""
+            class="-intro-x flex items-center pt-5"
+          >
             <img
               alt="ZG Medical"
               class="w-6"
               :src="require(`@/assets/images/log.png`)"
-            />
+            >
             <span class="text-white text-lg ml-3">
               {{ $appName }}
             </span>
@@ -20,11 +23,11 @@
               alt="ZG Medical"
               class="-intro-x w-1/2 -mt-16"
               :src="require(`@/assets/images/nurse.svg`)"
-            />
+            >
             <div
               class="-intro-x text-white font-medium text-4xl leading-tight mt-10"
             >
-              A few more clicks to <br />
+              A few more clicks to <br>
               sign up to your account.
             </div>
             <div class="-intro-x mt-5 text-lg text-white dark:text-gray-500">
@@ -52,9 +55,9 @@
               <div>
                 <label class="flex flex-col sm:flex-row">
                   Employee Code
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-                    >(Get it from Admin)</span
-                  >
+                  <span
+                    class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+                  >(Get it from Admin)</span>
                 </label>
                 <input
                   v-model.trim="$v.employee_code.$model"
@@ -62,7 +65,7 @@
                   class="input w-full border mt-2"
                   :class="{ 'border-theme-6': $v.employee_code.$error }"
                   placeholder="JOSH123"
-                />
+                >
                 <template v-if="$v.employee_code.$error">
                   <div
                     v-if="!$v.employee_code.required"
@@ -75,9 +78,9 @@
               <div class="mt-3">
                 <label class="flex flex-col sm:flex-row">
                   Email
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-                    >(Required, email address format)</span
-                  >
+                  <span
+                    class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+                  >(Required, email address format)</span>
                 </label>
                 <input
                   v-model.trim="$v.email.$model"
@@ -85,12 +88,18 @@
                   class="input w-full border mt-2"
                   :class="{ 'border-theme-6': $v.email.$error }"
                   placeholder="example@gmail.com"
-                />
+                >
                 <template v-if="$v.email.$error">
-                  <div v-if="!$v.email.required" class="text-theme-6 mt-2">
+                  <div
+                    v-if="!$v.email.required"
+                    class="text-theme-6 mt-2"
+                  >
                     Field is required
                   </div>
-                  <div v-if="!$v.email.email" class="text-theme-6 mt-2">
+                  <div
+                    v-if="!$v.email.email"
+                    class="text-theme-6 mt-2"
+                  >
                     Please enter a valid email address.
                   </div>
                 </template>
@@ -98,9 +107,9 @@
               <div class="mt-3">
                 <label class="flex flex-col sm:flex-row">
                   Password
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-                    >(Required, at least 8 characters)</span
-                  >
+                  <span
+                    class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+                  >(Required, at least 8 characters)</span>
                 </label>
                 <input
                   v-model.trim="$v.password.$model"
@@ -108,12 +117,18 @@
                   class="input w-full border mt-2"
                   :class="{ 'border-theme-6': $v.password.$error }"
                   placeholder="secret"
-                />
+                >
                 <template v-if="$v.password.$error">
-                  <div v-if="!$v.password.required" class="text-theme-6 mt-2">
+                  <div
+                    v-if="!$v.password.required"
+                    class="text-theme-6 mt-2"
+                  >
                     Field is required
                   </div>
-                  <div v-if="!$v.password.minLength" class="text-theme-6 mt-2">
+                  <div
+                    v-if="!$v.password.minLength"
+                    class="text-theme-6 mt-2"
+                  >
                     Password must have at least
                     {{ $v.password.$params.minLength.min }} letters.
                   </div>
@@ -122,9 +137,9 @@
               <div class="mt-3">
                 <label class="flex flex-col sm:flex-row">
                   Confirm Password
-                  <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
-                    >(Must Match)</span
-                  >
+                  <span
+                    class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+                  >(Must Match)</span>
                 </label>
                 <input
                   v-model.trim="$v.repeatPassword.$model"
@@ -132,7 +147,7 @@
                   class="input w-full border mt-2"
                   :class="{ 'border-theme-6': $v.repeatPassword.$error }"
                   placeholder="secret"
-                />
+                >
                 <template v-if="$v.repeatPassword.$error">
                   <div
                     v-if="!$v.repeatPassword.sameAsPassword"
@@ -147,9 +162,15 @@
               v-if="isLoading"
               class="col-span-6 sm:col-span-3 xl:col-span-2 flex flex-col justify-end items-center"
             >
-              <LoadingIcon icon="three-dots" class="w-8 h-8" />
+              <LoadingIcon
+                icon="three-dots"
+                class="w-8 h-8"
+              />
             </div>
-            <div v-else class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+            <div
+              v-else
+              class="intro-x mt-5 xl:mt-8 text-center xl:text-left"
+            >
               <button
                 class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top"
                 @click="save"

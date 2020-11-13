@@ -436,6 +436,15 @@ export default {
     };
   },
   computed: {
+      //Start: Get only principals to filter in search Principal field
+    principals() {
+      const principals = this.clients.filter(function(client) {
+        return client.type != "Dependent";
+      });
+      return principals;
+    },
+    //End: Get only principals to filter
+
     //Start: Get all required states
     ...mapState({
       clients: (state) => state.client.clients,
@@ -507,7 +516,7 @@ export default {
     //Start: Fill the table data
     getTable() {
       this.fetchAllClients().then(() => {
-        let tableData = this.clients;
+        let tableData = this.principals;
         this.table = new Tabulator(this.$refs.table, {
           cellHozAlign: "center",
           data: tableData,
@@ -552,15 +561,7 @@ export default {
               vertAlign: "middle",
               print: false,
               download: false,
-            },
-            {
-              title: "TYPE",
-              field: "type",
-              hozAlign: "center",
-              vertAlign: "middle",
-              print: false,
-              download: false,
-            },
+            },            
             {
               title: "MEMBERSHIP STATUS",
               field: "membership_status",

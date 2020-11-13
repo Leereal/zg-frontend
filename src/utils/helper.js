@@ -141,6 +141,14 @@ export default {
           return false
         } //Checking if user has any role similar to allowed roles and return true else false
       },
+      //3. Get totals of array value
+      totalPayments(amounts){
+        let total = 0;
+        for(let num of amounts){
+            total +=parseFloat(num.amount);
+        }
+        return total;      
+      }
     };
 
     Vue.prototype.$h = helpers;

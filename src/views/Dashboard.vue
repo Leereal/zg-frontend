@@ -29,7 +29,7 @@
                     </div>
                   </div>
                   <div class="text-3xl font-bold leading-8 mt-6">
-                    4.510
+                    {{$h.totalPayments(totalMonthPayments)}}
                   </div>
                   <div class="text-base text-gray-600 mt-1">
                     Current Month's Payments
@@ -53,7 +53,7 @@
                     </div>
                   </div>
                   <div class="text-3xl font-bold leading-8 mt-6">
-                    3.521
+                    {{$h.totalPayments(payments)}}
                   </div>
                   <div class="text-base text-gray-600 mt-1">
                     Total Payments
@@ -278,10 +278,14 @@ export default {
       clients: (state) => state.client.clients,
       plans: (state) => state.plan.plans,
       groups: (state) => state.group.groups,
+      payments: (state) => state.payment.payments,
     }),
     //End: Get all required states
 
-    ...mapGetters(["getClients"]), // Get all getters
+    ...mapGetters(["getClients","currentMonthPayments"]), // Get all getters
+    totalMonthPayments(){
+      return this.currentMonthPayments;
+    }
    },
      mounted() {
     this.fetchAllClients();

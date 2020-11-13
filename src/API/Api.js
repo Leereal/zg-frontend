@@ -4,6 +4,6 @@ if(sessionStorage.user){
 }
 const Api = axios.create({
      baseURL: 'http://127.0.0.1:8000/api'
-    // baseURL: 'http://zimgeneral.com/api'
+     //baseURL: 'https://zimgeneral.com/api'
 })
 export default Api;

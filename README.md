@@ -1,4 +1,4 @@
-# midone-vue
+# ZIMGENERAL MEDICAL AID FRONT-END
 
 ## Project setup
 ```

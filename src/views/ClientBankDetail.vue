@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <div class="flex flex-col sm:flex-row items-center mt-8" :class="{ 'intro-y': !isFormOpen }">
       <h2 class="text-lg font-medium mr-auto">
-        {{ name }}
+        Clients Bank Details
       </h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-        <button class="button text-white bg-theme-1 shadow-md mr-2">
-          Add New {{ name }}
+        <button class="button text-white bg-theme-1 shadow-md mr-2" @click="isFormOpen = true">
+          Add New Client Bank Details
         </button>
         <div class="dropdown ml-auto sm:ml-0">
           <button
@@ -23,12 +23,14 @@
             <div class="dropdown-box__content box dark:bg-dark-1 p-2">
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
+              @click="isFormOpen = true"
               >
                 <i
                   data-feather="plus-circle"
                   class="w-4 h-4 mr-2"
-                /> New {{ name }}
+                /> New Client Bank Details
               </a>
+              <router-link to="/clients">
               <a
                 class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
               >
@@ -37,6 +39,7 @@
                   class="w-4 h-4 mr-2"
                 /> New Client
               </a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -189,6 +192,245 @@
       </div>
     </div>
     <!-- END: HTML Table Data -->
+        <!-- START: Modal -->
+    <modal
+      v-if="isFormOpen"
+      :title="modalTitle"
+      @close="close"
+      @submit-form="addValue"
+    >
+      <div
+        class="p-5 grid grid-cols-12 gap-4 row-gap-3  border-b border-blue-300 "
+      >
+        <!-- Start: First Name Field -->
+        <div class="col-span-12 sm:col-span-6">
+          <label class="flex flex-col sm:flex-row">
+            First Name
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
+          </label>
+          <input
+            v-model="$v.form.firstname.$model"
+            type="text"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.firstname.$error }"
+            placeholder="First Name"
+          >
+          <template v-if="$v.form.firstname.$error">
+            <div
+              v-if="!$v.form.firstname.required"
+              class="text-theme-6 mt-2"
+            >
+              Field is required
+            </div>
+            <div
+              v-if="!$v.form.firstname.minLength"
+              class="text-theme-6 mt-2"
+            >
+              Name must be atleast
+              {{ $v.form.firstname.$params.minLength.min }} letters.
+            </div>
+            <div
+              v-if="!$v.form.firstname.maxLength"
+              class="text-theme-6 mt-2"
+            >
+              Name must not be more than
+              {{ $v.form.firstname.$params.maxLength.max }} letters.
+            </div>
+          </template>
+        </div>
+        <!-- End: First Name Field -->
+
+        <!-- Start: Surname Field -->
+        <div class="col-span-12 sm:col-span-6">
+          <label class="flex flex-col sm:flex-row">
+            Surname
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
+          </label>
+          <input
+            v-model="$v.form.surname.$model"
+            type="text"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.surname.$error }"
+            placeholder="Surname"
+          >
+          <template v-if="$v.form.surname.$error">
+            <div
+              v-if="!$v.form.surname.required"
+              class="text-theme-6 mt-2"
+            >
+              Field is required
+            </div>
+            <div
+              v-if="!$v.form.surname.minLength"
+              class="text-theme-6 mt-2"
+            >
+              Surname must be atleast
+              {{ $v.form.surname.$params.minLength.min }} letters.
+            </div>
+            <div
+              v-if="!$v.form.surname.maxLength"
+              class="text-theme-6 mt-2"
+            >
+              Surname must not be more than
+              {{ $v.form.surname.$params.maxLength.max }} letters.
+            </div>
+          </template>
+        </div>
+        <!-- End: Surname Field -->
+      </div>
+      <div
+        class="p-5 grid grid-cols-12 gap-4 row-gap-3  border-b border-blue-300 "
+      >
+        <!-- Start: Cellphone Field -->
+        <div class="col-span-12 sm:col-span-6">
+          <label class="flex flex-col sm:flex-row">
+            Cellphone
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
+          </label>
+          <input
+            v-model.trim="$v.form.cellphone.$model"
+            type="text"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.cellphone.$error }"
+            placeholder="0771234567"
+          >
+          <template v-if="$v.form.cellphone.$error">
+            <div
+              v-if="!$v.form.cellphone.number"
+              class="text-theme-6 mt-2"
+            >
+              Cellphone must be a Number
+            </div>
+            <div
+              v-if="!$v.form.cellphone.minLength"
+              class="text-theme-6 mt-2"
+            >
+              Cellphone must be atleast
+              {{ $v.form.cellphone.$params.minLength.min }} numbers.
+            </div>
+            <div
+              v-if="!$v.form.cellphone.maxLength"
+              class="text-theme-6 mt-2"
+            >
+              Cellphone must not be more than
+              {{ $v.form.cellphone.$params.maxLength.max }} numbers.
+            </div>
+          </template>
+        </div>
+        <!-- End: Cellphone Field -->
+        <!-- Start: Branch Field -->
+        <div class="col-span-12 sm:col-span-3">
+          <label class="flex flex-col sm:flex-row">
+            Branch
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
+          </label>
+          <model-list-select
+            v-model="$v.form.branch.$model"
+            :list="branches"
+            option-value="id"
+            :option-text="'name'"
+            placeholder="Select Branch"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.branch.$error }"
+          />
+        </div>
+        <!-- End: Branch Field -->
+      </div>
+      <div
+        class="p-5 grid grid-cols-12 gap-4 row-gap-3  border-b border-blue-300 "
+      >
+        <!-- Start: Job Title Field -->
+        <div class="col-span-12 sm:col-span-12">
+          <label class="flex flex-col sm:flex-row">
+            Job Title
+            <span
+              class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+            >(Required)</span>
+          </label>
+          <select
+            v-model="$v.form.job_title.$model"
+            class="input w-full border mt-2"
+            :class="{ 'border-theme-6': $v.form.job_title.$error }"
+          >
+            <option
+              disabled
+              value=""
+            >
+              Select Job Title
+            </option>
+            <option>Administrator</option>
+            <option>Claims Officer</option>
+            <option>Team Leader</option>
+            <option>Marketing Officer</option>
+            <option>Chairperson</option>
+            <option>Principal Officer</option>
+            <option>Accountant</option>
+            <option>Brand Ambassador</option>
+          </select>
+          <template v-if="$v.form.job_title.$error">
+            <div
+              v-if="!$v.form.job_title.required"
+              class="text-theme-6 mt-2"
+            >
+              Field is required
+            </div>
+          </template>
+        </div>
+        <!-- End: Job Title Field -->
+        <!-- Start: Roles Field -->
+        <!-- <div class="col-span-12 sm:col-span-6">
+          <label class="flex flex-col sm:flex-row">
+            Roles
+            <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-gray-600"
+              >(Required)</span
+            >
+          </label>
+          <div class="mt-2">
+            <TailSelect          
+              v-model="form.roles"
+              :options="{
+                  search: true,
+                  descriptions: true,
+                  hideSelected: true,
+                  hideDisabled: true,           
+                  multiShowCount: false,
+                  multiContainer: true,
+                  classNames: 'w-full'
+                }"
+              multiple                          
+            >
+            <option value="rol.name">{{rol.name}}</option> 
+            <option value="1">System Admin</option>
+            <option value="2">Chairperson</option>
+            <option value="3">Principal Officer</option> 
+            <option value="4">Team Leader</option>
+            <option value="5">Claims Officer</option>
+            <option value="6">Administrator</option>
+            <option value="7">Marketing Consultant</option>
+            <option value="8">Marketing Officer</option>
+            <option value="9">Brand Ambassador</option> 
+            <option value="10">Client</option>
+            <option value="11">Service Provider</option>                    
+            </TailSelect>
+          </div>
+          <template v-if="$v.form.roles.$error">
+            <div v-if="!$v.form.roles.required" class="text-theme-6 mt-2">
+              Field is required
+            </div>
+          </template>
+        </div>-->
+        <!-- End: Job Title Field -->
+      </div>
+    </modal>
+    <!--END: Modal -->
   </div>
 </template>
 

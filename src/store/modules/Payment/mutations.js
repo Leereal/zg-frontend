@@ -2,8 +2,9 @@ export const PAYMENT = (state) => {
   state.paymentLoading = true;
 };
 
-export const PAYMENT_SUCCESS = (state) => {
+export const PAYMENT_SUCCESS = (state,payload) => {
   state.paymentLoading = false;
+  state.receipt = payload;
 };
 
 export const PAYMENT_FAILED = (state,payload) => {

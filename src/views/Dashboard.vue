@@ -17,19 +17,20 @@
               <div class="report-box zoom-in">
                 <div class="box p-5">
                   <div class="flex">
-                    <ShoppingCartIcon class="report-box__icon text-theme-10" />
+                    <CreditCardIcon class="report-box__icon text-theme-11" />
                     <div class="ml-auto">
                       <Tippy
                         tag="div"
                         class="report-box__indicator bg-theme-9 cursor-pointer"
                         content="33% Higher than last month"
                       >
-                        33% <ChevronUpIcon class="w-4 h-4" />
+                        {{ percentageIncreasePayments }}%
+                        <ChevronUpIcon class="w-4 h-4" />
                       </Tippy>
                     </div>
                   </div>
                   <div class="text-3xl font-bold leading-8 mt-6">
-                    {{$h.totalPayments(totalMonthPayments)}}
+                    {{ $h.totalPayments(currentMonthPayments) + 0 }}
                   </div>
                   <div class="text-base text-gray-600 mt-1">
                     Current Month's Payments
@@ -48,12 +49,13 @@
                         class="report-box__indicator bg-theme-6 cursor-pointer"
                         content="2% Lower than last month"
                       >
-                        2% <ChevronDownIcon class="w-4 h-4" />
+                        {{ percentageTotalIncreasePayments }}%
+                        <ChevronDownIcon class="w-4 h-4" />
                       </Tippy>
                     </div>
                   </div>
                   <div class="text-3xl font-bold leading-8 mt-6">
-                    {{$h.totalPayments(payments)}}
+                    {{ $h.totalPayments(payments) }}
                   </div>
                   <div class="text-base text-gray-600 mt-1">
                     Total Payments
@@ -77,7 +79,7 @@
                     </div>
                   </div>
                   <div class="text-3xl font-bold leading-8 mt-6">
-                    2.145
+                    {{ $h.totalPayments(previousMonthPayments) }}
                   </div>
                   <div class="text-base text-gray-600 mt-1">
                     Total Claims
@@ -96,12 +98,13 @@
                         class="report-box__indicator bg-theme-9 cursor-pointer"
                         content="22% Higher than last month"
                       >
-                        22% <ChevronUpIcon class="w-4 h-4" />
+                        {{ percentageIncreaseClients }}%
+                        <ChevronUpIcon class="w-4 h-4" />
                       </Tippy>
                     </div>
                   </div>
                   <div class="text-3xl font-bold leading-8 mt-6">
-                    152.000
+                    {{ clientsCount }}
                   </div>
                   <div class="text-base text-gray-600 mt-1">
                     Total Clients
@@ -153,7 +156,7 @@
                 <div
                   class="text-theme-20 dark:text-gray-300 text-lg xl:text-xl font-bold"
                 >
-                  $15,000
+                  ${{ $h.totalPayments(this.currentMonthPayments) }}
                 </div>
                 <div class="text-gray-600 dark:text-gray-600">This Month</div>
               </div>
@@ -164,49 +167,19 @@
                 <div
                   class="text-gray-600 dark:text-gray-600 text-lg xl:text-xl font-medium"
                 >
-                  $10,000
+                  ${{ $h.totalPayments(this.previousMonthPayments) }}
                 </div>
                 <div class="text-gray-600 dark:text-gray-600">Last Month</div>
               </div>
             </div>
             <div class="dropdown xl:ml-auto mt-5 xl:mt-0">
-              <button
-                class="dropdown-toggle button font-normal border dark:border-dark-5 text-white dark:text-gray-300 relative flex items-center text-gray-700"
-              >
-                Filter by Category
-                <ChevronDownIcon class="w-4 h-4 ml-2" />
-              </button>
-              <div class="dropdown-box w-40">
-                <div
-                  class="dropdown-box__content box dark:bg-dark-1 p-2 overflow-y-auto h-32"
-                >
-                  <a
-                    href=""
-                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >General</a
-                  >
-                  <a
-                    href=""
-                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >Flexi Gold</a
-                  >
-                  <a
-                    href=""
-                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >Electronic</a
-                  >
-                  <a
-                    href=""
-                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >Photography</a
-                  >
-                  <a
-                    href=""
-                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
-                    >Sport</a
-                  >
-                </div>
-              </div>
+              <model-list-select                
+                :list="plans"
+                option-value="id"
+                :option-text="'name'"
+                placeholder="Filter By Plan"
+                class="input w-full border mt-2"               
+              />
             </div>
           </div>
           <div class="report-chart">
@@ -216,45 +189,7 @@
       </div>
       <!-- END: Payments Report -->
       <!-- BEGIN: Weekly Best Sellers -->
-      <div class="col-span-12 xl:col-span-6 mt-6">
-        <div class="intro-y flex items-center h-10">
-          <h2 class="text-lg font-medium truncate mr-5">Weekly Best Brand Ambassadors</h2>
-        </div>
-        <div class="mt-5">
-          <div
-            v-for="(faker, fakerKey) in $_.take($f(), 4)"
-            :key="fakerKey"
-            class="intro-y"
-          >
-            <div class="box px-4 py-4 mb-3 flex items-center zoom-in">
-              <div
-                class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden"
-              >
-                <img
-                  alt="Midone Tailwind HTML Admin Template"
-                  :src="require(`@/assets/images/${faker.photos[0]}`)"
-                />
-              </div>
-              <div class="ml-4 mr-auto">
-                <div class="font-medium">{{ faker.users[0].name }}</div>
-                <div class="text-gray-600 text-xs">
-                  {{ faker.dates[0] }}
-                </div>
-              </div>
-              <div
-                class="py-1 px-2 rounded-full text-xs bg-theme-9 b text-white cursor-pointer font-medium"
-              >
-                137 Clients Registered
-              </div>
-            </div>
-          </div>
-          <a
-            href=""
-            class="intro-y w-full block text-center rounded-md py-4 border border-dotted border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600"
-            >View More</a
-          >
-        </div>
-      </div>
+      <WeeklyBestReferrer/>
       <!-- END: Weekly Best Sellers -->
     </div>
   </div>
@@ -263,16 +198,20 @@
 <script>
 import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 import ReportLineChart from "@/components/PaymentsReportLineChart";
+import { ModelListSelect } from "vue-search-select"; //Import for dropdown search
+import WeeklyBestReferrer from "../components/WeeklyBestReferrer";
 export default {
   components: {
     ReportLineChart,
+    WeeklyBestReferrer,
+    "model-list-select": ModelListSelect,
   },
   data() {
     return {
       salesReportFilter: "",
     };
   },
-   computed: {
+  computed: {
     //Start: Get all required states
     ...mapState({
       clients: (state) => state.client.clients,
@@ -282,12 +221,46 @@ export default {
     }),
     //End: Get all required states
 
-    ...mapGetters(["getClients","currentMonthPayments"]), // Get all getters
-    totalMonthPayments(){
-      return this.currentMonthPayments;
-    }
-   },
-     mounted() {
+    ...mapGetters([
+      "getClients",
+      "currentMonthPayments",
+      "previousMonthPayments",
+      "clientsCount",
+      "currentMonthClients",
+      "previousMonthClients",
+    ]), // Get all getters
+
+    //Calculate percentage increase from last month
+    percentageIncreaseClients() {
+      return (
+        Math.round(
+          (this.currentMonthClients.length / this.clients.length) * 100
+        ) + 0
+      );
+    },
+
+    //Calculate percentage increase from last month
+    percentageIncreasePayments() {
+      return (
+        Math.round(
+          (this.$h.totalPayments(this.currentMonthPayments) /
+            this.$h.totalPayments(this.previousMonthPayments)) *
+            100
+        ) + 0
+      );
+    },
+    //Calculate percentage increase for total
+    percentageTotalIncreasePayments() {
+      return (
+        Math.round(
+          (this.$h.totalPayments(this.currentMonthPayments) /
+            this.$h.totalPayments(this.payments)) *
+            100
+        ) + 0
+      );
+    },
+  },
+  mounted() {
     this.fetchAllClients();
     this.fetchAllGroups();
     this.fetchAllPlans();
@@ -297,7 +270,14 @@ export default {
     this.fetchAllEmployees();
     this.fetchAllBranches();
     this.fetchAllLimits();
-     },
+    this.fetchAllClientBankDetails();
+    this.fetchAllCompanyBankDetails();
+    this.fetchAllSPBankDetails();
+    this.fetchAllLimitPlans();
+    this.fetchAllPaymentMethods();
+    this.fetchAllRoles();
+    this.fetchAllServiceProviders();
+  },
   methods: {
     ...mapActions([
       "fetchAllClients",
@@ -309,8 +289,14 @@ export default {
       "fetchAllEmployees",
       "fetchAllBranches",
       "fetchAllLimits",
+      "fetchAllClientBankDetails",
+      "fetchAllCompanyBankDetails",
+      "fetchAllSPBankDetails",
+      "fetchAllLimitPlans",
+      "fetchAllPaymentMethods",
+      "fetchAllRoles",
+      "fetchAllServiceProviders",
     ]),
-
 
     prevImportantNotes() {
       this.$refs["important-notes"].prev();

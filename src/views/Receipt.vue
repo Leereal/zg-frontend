@@ -39,15 +39,15 @@
         class="flex flex-col lg:flex-row pt-10 px-5 sm:px-20 sm:pt-20 lg:pb-20 text-center sm:text-left"
       >
         <div class="font-semibold text-theme-1 dark:text-theme-10 text-3xl">
-          INVOICE
+          RECEIPT
         </div>
         <div class="mt-20 lg:mt-0 lg:ml-auto lg:text-right">
           <div class="text-xl text-theme-1 dark:text-theme-10 font-medium">
             ZG Medical Aid Fund
           </div>
-          <div class="mt-1">left4code@gmail.com</div>
-          <div class="mt-1">8023 Amerige Street Harriman, NY 10926.</div>
-          <div class="mt-1">054 25652555.</div>
+          <div class="mt-1">enquiries@zimgeneral.co.zw</div>
+          <div class="mt-1">Moonlight Building, 5th Street, Gweru, Zimbabwe</div>
+          <div class="mt-1">+263 77 945 0922</div>
         </div>
       </div>
       <div
@@ -56,18 +56,17 @@
         <div>
           <div class="text-base text-gray-600">Client Details</div>
           <div class="text-lg font-medium text-theme-1 dark:text-theme-10 mt-2">
-            Arnold Schwarzenegger
+           {{payment.client}}
           </div>
-          <div class="mt-1">arnodlschwarzenegger@gmail.com</div>
-          <div class="mt-1">07751216366</div>
-          <div class="mt-1">260 W. Storm Street New York, NY 10025.</div>
+          <div class="mt-1">Medical Aid Number: {{payment.medical_aid_number}}</div>
+          <div class="mt-1">{{payment.cellphone}}</div>          
         </div>
         <div class="mt-10 lg:mt-0 lg:ml-auto lg:text-right">
           <div class="text-base text-gray-600">Receipt</div>
           <div class="text-lg text-theme-1 dark:text-theme-10 font-medium mt-2">
-            #1923195
+            #{{payment.receipt_number}}
           </div>
-          <div class="mt-1">Jan 02, 2021</div>
+          <div class="mt-1">{{payment.date_paid}}</div>
         </div>
       </div>
       <div class="px-5 sm:px-16 py-10 sm:py-20">
@@ -102,15 +101,15 @@
                     Medical Aid Premium Payment
                   </div>
                   <div class="text-gray-600 text-xs whitespace-no-wrap">
-                    Flexi Gold
+                    {{payment.plan}}
                   </div>
                 </td>
-                <td class="text-right border-b dark:border-dark-5 w-32">2</td>
-                <td class="text-right border-b dark:border-dark-5 w-32">$25</td>
+                <td class="text-right border-b dark:border-dark-5 w-32">{{payment.members}}</td>
+                <td class="text-right border-b dark:border-dark-5 w-32">{{payment.premium}}</td>
                 <td
                   class="text-right border-b dark:border-dark-5 w-32 font-medium"
                 >
-                  $100
+                  {{payment.amount}}
                 </td>
               </tr>
             </tbody>
@@ -121,17 +120,16 @@
         class="px-5 sm:px-20 pb-10 sm:pb-20 flex flex-col-reverse sm:flex-row"
       >
         <div class="text-center sm:text-left mt-10 sm:mt-0">
-          <div class="text-base text-gray-600">Bank Transfer</div>
+          <div class="text-base text-gray-600">{{payment.payment_method}}</div>
           <div class="text-lg text-theme-1 dark:text-theme-10 font-medium mt-2">
-            Done By Elon Musk
-          </div>
-          <div class="mt-1">Account Number : 098347234832</div>
-          <div class="mt-1">Ref Number : LFT133243</div>
+            Done By {{payment.employee}}
+          </div>      
+          <div class="mt-1">Ref Number : {{payment.ref_number}}</div>
         </div>
         <div class="text-center sm:text-right sm:ml-auto">
           <div class="text-base text-gray-600">Total Amount</div>
           <div class="text-xl text-theme-1 dark:text-theme-10 font-medium mt-2">
-            $100.00
+            {{payment.amount}}
           </div>
           <div class="mt-1 tetx-xs">Taxes included</div>
         </div>
@@ -140,3 +138,12 @@
     <!-- END: Invoice -->
   </div>
 </template>
+<script>
+export default {
+  computed: {
+    payment(){
+      return this.$store.state.payment.receipt;
+    }
+  }  
+}
+</script>

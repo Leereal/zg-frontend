@@ -306,6 +306,22 @@ export default {
             cellClick: this.editValue,
           },
           {
+            title: "REVERSE",
+            field: "reverse",
+            hozAlign: "center",
+            vertAlign: "middle",
+            print: false,
+            download: false,
+            formatter() {
+              return `<div class="flex lg:justify-center items-center">              
+              <a class="flex items-center text-theme-6" href="javascript:;">
+                <i data-feather="rotate-ccw" class="w-4 h-4 mr-1"></i> REVERSE
+              </a>
+            </div>`;
+            },
+            cellClick: this.reverse,
+          },
+          {
             title: "DELETE",
             field: "delete",
             hozAlign: "center",
@@ -420,6 +436,41 @@ export default {
       });
     },
     //End: Delete function
+
+    
+    //Start: Reverse function
+    reverse(e, cell) {
+      Swal.fire({
+        title: "Are you sure you want to reverse payment?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, reverse it!",
+      }).then((result) => {
+        if (result.isConfirmed) {         
+          this.deletePayment(cell.getData().id)
+            .then(() => {
+              this.getTable();
+              Swal.fire("Reversed!", "Payment Reversed", "success");
+            })
+            .catch((err) => {    
+              Toastify({
+                text: err,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "bottom",
+                position: "left",
+                backgroundColor: "#D32929",
+                stopOnFocus: true,
+              }).showToast();
+            });
+        }
+      });
+    },
+    //End: Reverse function
 
     //Start: Edit function
     editValue(e, cell) {

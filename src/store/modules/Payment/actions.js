@@ -14,7 +14,7 @@ export const addPayment = async ({ commit }, payment) => {
   const response = await Payment.store(payment);
   if (response.status == 201) {
     const payload = await response;
-    commit("PAYMENT_SUCCESS");
+    commit("PAYMENT_SUCCESS",payload.data.data);
     return payload;
   }  
   throw new Error("Error");
